@@ -1,0 +1,1253 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Portfolio</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+
+    <style>
+        /* ===== БАЗА ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-gradient: linear-gradient(145deg, #0b1a33 0%, #1e2a4a 40%, #2d1b4e 100%);
+            --glass-bg: rgba(255, 255, 255, 0.07);
+            --glass-border: rgba(255, 255, 255, 0.12);
+            --text-primary: #f0f4ff;
+            --text-secondary: #c8d6e5;
+            --text-muted: #94a3b8;
+            --accent: #6c8cff;
+            --accent-hover: #5a7ae0;
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            --radius: 16px;
+            --font-base: 20px;
+            --font-large: 30px;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            font-family: 'Inter', -apple-system, sans-serif;
+            font-size: var(--font-base);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 28px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            backdrop-filter: blur(2px);
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        /* ===== СТЕКЛЯННЫЕ КАРТОЧКИ ===== */
+        .glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            transition: 0.25s ease;
+        }
+
+        .glass:hover {
+            border-color: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.10);
+        }
+
+        /* ===== ШАПКА ===== */
+        .header {
+            padding: 24px 32px;
+            margin-bottom: 28px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .logo-icon {
+            font-size: 44px;
+            line-height: 1;
+        }
+
+        .logo-text {
+            font-weight: 700;
+            font-size: 30px;
+            letter-spacing: -0.5px;
+            color: var(--text-primary);
+        }
+
+        .logo-text span {
+            color: var(--accent);
+        }
+
+        .logo-sub {
+            font-size: 17px;
+            color: var(--text-secondary);
+            font-weight: 400;
+            margin-top: 2px;
+        }
+
+        .lang-switch {
+            display: flex;
+            gap: 8px;
+            background: rgba(255,255,255,0.06);
+            padding: 6px;
+            border-radius: 10px;
+            border: 1px solid var(--glass-border);
+        }
+
+        .lang-btn {
+            font-family: 'Inter', sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+            padding: 8px 20px;
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+            cursor: pointer;
+            border-radius: 8px;
+            transition: 0.2s;
+        }
+
+        .lang-btn:hover {
+            background: rgba(255,255,255,0.08);
+            color: #fff;
+        }
+
+        .lang-btn.active {
+            background: var(--accent);
+            color: #fff;
+            box-shadow: 0 4px 16px rgba(108, 140, 255, 0.3);
+        }
+
+        /* ===== НАВИГАЦИЯ ===== */
+        .nav {
+            padding: 16px 24px;
+            margin-bottom: 28px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .nav-btn {
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 20px;
+            padding: 12px 28px;
+            border: none;
+            border-radius: 10px;
+            background: transparent;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: 0.2s;
+            text-decoration: none;
+        }
+
+        .nav-btn:hover {
+            background: rgba(255,255,255,0.08);
+            color: #fff;
+        }
+
+        .nav-btn.construction {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        /* ===== ОСНОВНАЯ СЕТКА ===== */
+        .content {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 28px;
+        }
+
+        /* ===== САЙДБАР ===== */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .card {
+            padding: 22px 24px;
+        }
+
+        .card h3 {
+            font-size: 16px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .card ul li {
+            font-size: 18px;
+            padding: 8px 0;
+            color: var(--text-secondary);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card ul li:last-child {
+            border-bottom: none;
+        }
+
+        .counter {
+            font-family: 'Inter', monospace;
+            font-size: 44px;
+            font-weight: 700;
+            color: var(--accent);
+            text-align: center;
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: 16px 0;
+            letter-spacing: 2px;
+        }
+
+        .badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 4px;
+        }
+
+        .badges span {
+            font-size: 14px;
+            font-weight: 600;
+            padding: 6px 16px;
+            background: rgba(255,255,255,0.06);
+            border-radius: 30px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            border: 1px solid var(--glass-border);
+        }
+
+        /* ===== ОСНОВНОЙ КОНТЕНТ ===== */
+        .main {
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+
+        .section {
+            padding: 28px 32px;
+        }
+
+        .section-title {
+            font-size: var(--font-large);
+            font-weight: 700;
+            margin-bottom: 22px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: var(--text-primary);
+        }
+
+        .section-title .icon {
+            font-size: 34px;
+            color: var(--accent);
+        }
+
+        /* About */
+        .about {
+            display: flex;
+            gap: 32px;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+
+        .avatar {
+            width: 140px;
+            height: 140px;
+            background: rgba(255,255,255,0.06);
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 72px;
+            flex-shrink: 0;
+            border: 1px solid var(--glass-border);
+        }
+
+        .about-text {
+            flex: 1;
+            font-size: var(--font-base);
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        .about-text strong {
+            color: #fff;
+        }
+
+        .highlight {
+            background: rgba(108, 140, 255, 0.2);
+            color: var(--accent);
+            padding: 0 10px;
+            border-radius: 6px;
+            font-weight: 600;
+        }
+
+        /* Skills */
+        .skills {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 18px;
+        }
+
+        .skill-item {
+            background: rgba(255,255,255,0.04);
+            border-radius: var(--radius);
+            padding: 20px;
+            text-align: center;
+            border: 1px solid var(--glass-border);
+            transition: 0.2s;
+        }
+
+        .skill-item:hover {
+            background: rgba(255,255,255,0.08);
+            border-color: rgba(255,255,255,0.2);
+        }
+
+        .skill-item .icon {
+            font-size: 44px;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .skill-item .name {
+            font-size: var(--font-base);
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .skill-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 6px;
+            margin-top: 10px;
+            overflow: hidden;
+        }
+
+        .skill-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent), #a78bfa);
+            border-radius: 6px;
+            transition: width 0.4s;
+        }
+
+        .skill-label {
+            font-size: 16px;
+            color: var(--text-muted);
+            margin-top: 4px;
+            display: block;
+        }
+
+        /* Portfolio */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 20px;
+        }
+
+        .portfolio-item {
+            background: rgba(255,255,255,0.04);
+            border-radius: var(--radius);
+            overflow: hidden;
+            cursor: pointer;
+            transition: 0.2s;
+            border: 1px solid var(--glass-border);
+        }
+
+        .portfolio-item:hover {
+            border-color: var(--accent);
+            transform: translateY(-6px);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.3);
+            background: rgba(255,255,255,0.08);
+        }
+
+        .portfolio-image {
+            aspect-ratio: 4/3;
+            background: rgba(108, 140, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 56px;
+            color: var(--accent);
+        }
+
+        .portfolio-info {
+            padding: 14px 16px 16px;
+            text-align: center;
+        }
+
+        .portfolio-name {
+            font-weight: 600;
+            font-size: 18px;
+            color: var(--text-primary);
+        }
+
+        .portfolio-tag {
+            font-size: 15px;
+            color: var(--text-muted);
+        }
+
+        /* Contacts */
+        .contacts {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .contacts li {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            padding: 16px 20px;
+            background: rgba(255,255,255,0.04);
+            border-radius: var(--radius);
+            font-size: var(--font-base);
+            color: var(--text-secondary);
+            border: 1px solid var(--glass-border);
+            transition: 0.2s;
+        }
+
+        .contacts li:hover {
+            background: rgba(255,255,255,0.08);
+            border-color: rgba(255,255,255,0.2);
+        }
+
+        .contacts li .icon {
+            font-size: 28px;
+            color: var(--accent);
+        }
+
+        .contacts li a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .contacts li a:hover {
+            text-decoration: underline;
+        }
+
+        .guestbook {
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(255,255,255,0.04);
+            border-radius: var(--radius);
+            text-align: center;
+            font-size: var(--font-base);
+            color: var(--text-secondary);
+            border: 1px dashed var(--glass-border);
+        }
+
+        .guestbook .btn {
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: var(--font-base);
+            padding: 12px 36px;
+            border: none;
+            border-radius: var(--radius);
+            background: var(--accent);
+            color: #fff;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 10px;
+            display: inline-block;
+        }
+
+        .guestbook .btn:hover {
+            background: var(--accent-hover);
+            box-shadow: 0 4px 20px rgba(108, 140, 255, 0.4);
+        }
+
+        /* ===== ФУТЕР ===== */
+        .footer {
+            margin-top: 28px;
+            padding: 24px 32px;
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 18px;
+        }
+
+        .footer .heart {
+            color: var(--accent);
+        }
+
+        .footer-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 14px;
+        }
+
+        .footer-badges span {
+            font-size: 13px;
+            padding: 4px 16px;
+            background: rgba(255,255,255,0.04);
+            border-radius: 30px;
+            color: var(--text-muted);
+            border: 1px solid var(--glass-border);
+        }
+
+        /* ===== МОДАЛЬНОЕ ОКНО ===== */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(8px);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .modal {
+            background: rgba(20, 30, 50, 0.85);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius);
+            max-width: 1000px;
+            width: 92%;
+            max-height: 90vh;
+            padding: 32px 36px;
+            box-shadow: 0 24px 64px rgba(0,0,0,0.5);
+            position: relative;
+            overflow-y: auto;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 20px;
+            font-size: 34px;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .modal-close:hover {
+            transform: rotate(90deg);
+            color: #fff;
+        }
+
+        .modal-title {
+            font-size: var(--font-large);
+            font-weight: 700;
+            margin-bottom: 24px;
+            padding-right: 40px;
+            color: var(--text-primary);
+        }
+
+        .modal-content {
+            display: flex;
+            gap: 28px;
+            flex-wrap: wrap;
+        }
+
+        .modal-panel {
+            flex: 1;
+            min-width: 250px;
+            background: rgba(255,255,255,0.04);
+            border-radius: var(--radius);
+            padding: 18px;
+            border: 1px solid var(--glass-border);
+        }
+
+        .modal-panel h4 {
+            font-size: 16px;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            border-bottom: 1px solid var(--glass-border);
+            padding-bottom: 8px;
+            margin-bottom: 14px;
+            text-align: center;
+            letter-spacing: 0.5px;
+        }
+
+        .render-box {
+            aspect-ratio: 4/3;
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 88px;
+            color: var(--text-muted);
+        }
+
+        .model-container {
+            width: 100%;
+            min-height: 280px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: grab;
+        }
+
+        .model-container:active {
+            cursor: grabbing;
+        }
+
+        .model-container canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        .model-hint {
+            font-size: 16px;
+            color: var(--text-muted);
+            text-align: center;
+            margin-top: 8px;
+        }
+
+        /* ===== АДАПТИВ ===== */
+        @media (max-width: 850px) {
+            .content {
+                grid-template-columns: 1fr;
+            }
+            .sidebar {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 20px;
+            }
+            .header {
+                flex-direction: column;
+                align-items: stretch;
+                text-align: center;
+            }
+            .logo {
+                justify-content: center;
+            }
+            .lang-switch {
+                justify-content: center;
+            }
+            .nav {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 550px) {
+            body {
+                padding: 14px;
+                font-size: 18px;
+            }
+            :root {
+                --font-base: 18px;
+                --font-large: 26px;
+            }
+            .sidebar {
+                grid-template-columns: 1fr;
+            }
+            .section {
+                padding: 20px;
+            }
+            .nav-btn {
+                font-size: 17px;
+                padding: 10px 18px;
+            }
+            .modal {
+                padding: 20px;
+            }
+            .modal-title {
+                font-size: 24px;
+            }
+            .portfolio-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+            .header {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- ===== ШАПКА ===== -->
+    <header class="header glass">
+        <div class="logo">
+            <span class="logo-icon">🧊</span>
+            <div>
+                <div class="logo-text" data-i18n="siteTitle">3D <span>PORTFOLIO</span></div>
+                <div class="logo-sub" data-i18n="siteSubtitle">Fusion 360 · Blender · Engineering</div>
+            </div>
+        </div>
+        <div class="lang-switch">
+            <button class="lang-btn" data-lang="ru" onclick="setLanguage('ru')">RU</button>
+            <button class="lang-btn" data-lang="en" onclick="setLanguage('en')">EN</button>
+        </div>
+    </header>
+
+    <!-- ===== НАВИГАЦИЯ ===== -->
+    <nav class="nav glass">
+        <a href="#about" class="nav-btn" data-i18n="navAbout">About</a>
+        <a href="#skills" class="nav-btn" data-i18n="navSkills">Skills</a>
+        <a href="#portfolio" class="nav-btn" data-i18n="navPortfolio">Portfolio</a>
+        <a href="#contacts" class="nav-btn" data-i18n="navContacts">Contacts</a>
+        <a href="#" class="nav-btn construction" data-i18n="navGallery">Gallery</a>
+        <a href="#" class="nav-btn construction" data-i18n="navBlog">Blog</a>
+    </nav>
+
+    <!-- ===== КОНТЕНТ ===== -->
+    <div class="content">
+        <!-- САЙДБАР -->
+        <aside class="sidebar">
+            <div class="card glass">
+                <h3 data-i18n="sidebarInfo">📋 Info</h3>
+                <ul>
+                    <li data-i18n="sidebarName">Name: Alex</li>
+                    <li data-i18n="sidebarRole">Role: 3D Engineer</li>
+                    <li data-i18n="sidebarExp">Experience: 7+ years</li>
+                    <li data-i18n="sidebarLoc">Location: 🌍</li>
+                </ul>
+            </div>
+            <div class="card glass">
+                <h3 data-i18n="sidebarCounter">🔢 Visitors</h3>
+                <div class="counter" id="visitorCounter">00042</div>
+            </div>
+            <div class="card glass">
+                <h3 data-i18n="sidebarBadges">🏷️ Badges</h3>
+                <div class="badges">
+                    <span>Fusion 360</span>
+                    <span>Blender</span>
+                    <span>3D Print</span>
+                    <span>CAD</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- ОСНОВНАЯ ОБЛАСТЬ -->
+        <main class="main">
+            <!-- ABOUT -->
+            <section class="section glass" id="about">
+                <h2 class="section-title">
+                    <span class="icon">👤</span>
+                    <span data-i18n="aboutTitle">About Me</span>
+                </h2>
+                <div class="about">
+                    <div class="avatar">👩‍💻</div>
+                    <div class="about-text">
+                        <p data-i18n="aboutText1">
+                            Hi! I'm <span class="highlight">Alex</span> – a 3D modeler and engineer.
+                            I work with <strong>Fusion 360</strong> and <strong>Blender</strong>.
+                        </p>
+                        <p data-i18n="aboutText2">
+                            I create precise engineering models, prototypes for 3D printing,
+                            and artistic visualizations. My passion is turning ideas into
+                            digital objects that can be printed, assembled, or used in games.
+                        </p>
+                        <p data-i18n="aboutText3">
+                            🔧 CAD · 🎨 Design · 🖨️ 3D Print
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SKILLS -->
+            <section class="section glass" id="skills">
+                <h2 class="section-title">
+                    <span class="icon">⚡</span>
+                    <span data-i18n="skillsTitle">My Skills</span>
+                </h2>
+                <div class="skills">
+                    <div class="skill-item">
+                        <span class="icon">⚙️</span>
+                        <div class="name">Fusion 360</div>
+                        <div class="skill-bar"><div class="skill-bar-fill" style="width:95%"></div></div>
+                        <span class="skill-label">95%</span>
+                    </div>
+                    <div class="skill-item">
+                        <span class="icon">🧊</span>
+                        <div class="name">Blender</div>
+                        <div class="skill-bar"><div class="skill-bar-fill" style="width:88%"></div></div>
+                        <span class="skill-label">88%</span>
+                    </div>
+                    <div class="skill-item">
+                        <span class="icon">🖨️</span>
+                        <div class="name" data-i18n="skill3dPrint">3D Printing</div>
+                        <div class="skill-bar"><div class="skill-bar-fill" style="width:80%"></div></div>
+                        <span class="skill-label">80%</span>
+                    </div>
+                    <div class="skill-item">
+                        <span class="icon">📐</span>
+                        <div class="name" data-i18n="skillCAD">CAD Models</div>
+                        <div class="skill-bar"><div class="skill-bar-fill" style="width:92%"></div></div>
+                        <span class="skill-label">92%</span>
+                    </div>
+                    <div class="skill-item">
+                        <span class="icon">🎨</span>
+                        <div class="name" data-i18n="skillRender">Rendering</div>
+                        <div class="skill-bar"><div class="skill-bar-fill" style="width:75%"></div></div>
+                        <span class="skill-label">75%</span>
+                    </div>
+                    <div class="skill-item">
+                        <span class="icon">📦</span>
+                        <div class="name" data-i18n="skillParam">Parametrics</div>
+                        <div class="skill-bar"><div class="skill-bar-fill" style="width:97%"></div></div>
+                        <span class="skill-label">97%</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PORTFOLIO -->
+            <section class="section glass" id="portfolio">
+                <h2 class="section-title">
+                    <span class="icon">🖼️</span>
+                    <span data-i18n="portfolioTitle">Portfolio</span>
+                </h2>
+                <div class="portfolio-grid">
+                    <div class="portfolio-item" data-project-id="mechanical" onclick="openProjectModal('mechanical')">
+                        <div class="portfolio-image">⚙️</div>
+                        <div class="portfolio-info">
+                            <div class="portfolio-name" data-i18n="port1name">Mechanical Part</div>
+                            <div class="portfolio-tag">Fusion 360</div>
+                        </div>
+                    </div>
+                    <div class="portfolio-item" data-project-id="architecture" onclick="openProjectModal('architecture')">
+                        <div class="portfolio-image">🏗️</div>
+                        <div class="portfolio-info">
+                            <div class="portfolio-name" data-i18n="port2name">Architectural Project</div>
+                            <div class="portfolio-tag">Blender</div>
+                        </div>
+                    </div>
+                    <div class="portfolio-item" data-project-id="robot" onclick="openProjectModal('robot')">
+                        <div class="portfolio-image">🤖</div>
+                        <div class="portfolio-info">
+                            <div class="portfolio-name" data-i18n="port3name">Robot Manipulator</div>
+                            <div class="portfolio-tag">Fusion 360</div>
+                        </div>
+                    </div>
+                    <div class="portfolio-item" data-project-id="vase" onclick="openProjectModal('vase')">
+                        <div class="portfolio-image">🏺</div>
+                        <div class="portfolio-info">
+                            <div class="portfolio-name" data-i18n="port4name">Decorative Vase</div>
+                            <div class="portfolio-tag">Blender</div>
+                        </div>
+                    </div>
+                    <div class="portfolio-item" data-project-id="fastener" onclick="openProjectModal('fastener')">
+                        <div class="portfolio-image">🔩</div>
+                        <div class="portfolio-info">
+                            <div class="portfolio-name" data-i18n="port5name">Fastening Unit</div>
+                            <div class="portfolio-tag">Fusion 360</div>
+                        </div>
+                    </div>
+                    <div class="portfolio-item" data-project-id="character" onclick="openProjectModal('character')">
+                        <div class="portfolio-image">🧸</div>
+                        <div class="portfolio-info">
+                            <div class="portfolio-name" data-i18n="port6name">Game Character</div>
+                            <div class="portfolio-tag">Blender</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CONTACTS -->
+            <section class="section glass" id="contacts">
+                <h2 class="section-title">
+                    <span class="icon">📫</span>
+                    <span data-i18n="contactsTitle">Contacts</span>
+                </h2>
+                <ul class="contacts">
+                    <li>
+                        <span class="icon">📧</span>
+                        <span><a href="mailto:radiantgamestudios@gmail.com">radiantgamestudios@gmail.com</a></span>
+                    </li>
+                    <li>
+                        <span class="icon">💬</span>
+                        <span><a href="https://t.me/evgeeeesha27">@evgeeeesha27</a> <span data-i18n="contactTelegram">(Telegram)</span></span>
+                    </li>
+                    <li>
+                        <span class="icon">📱</span>
+                        <span><a href="tel:+79289362122">+7 (928) 936-21-22</a></span>
+                    </li>
+                </ul>
+                <div class="guestbook">
+                    <span data-i18n="guestbookText">✍️ Leave a message in my guestbook!</span>
+                    <br>
+                    <button class="btn" onclick="alert('📖 Coming soon!')" data-i18n="guestbookBtn">Sign</button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- ===== ФУТЕР ===== -->
+    <footer class="footer glass">
+        <div>
+            <span data-i18n="footerText">© 2025 Alex · 3D Portfolio · Made with</span>
+            <span class="heart">♥</span>
+            <span data-i18n="footerText2">and code</span>
+        </div>
+        <div class="footer-badges">
+            <span>HTML5</span>
+            <span>CSS3</span>
+            <span>JS</span>
+            <span>Three.js</span>
+            <span>Modern</span>
+        </div>
+    </footer>
+</div>
+
+<!-- ===== МОДАЛЬНОЕ ОКНО ===== -->
+<div class="modal-overlay" id="projectModalOverlay">
+    <div class="modal">
+        <button class="modal-close" id="modalCloseBtn">✕</button>
+        <div class="modal-title" id="modalProjectTitle">Project</div>
+        <div class="modal-content">
+            <div class="modal-panel">
+                <h4>🎨 Render</h4>
+                <div class="render-box" id="renderBox">
+                    <span id="renderEmoji">⚙️</span>
+                </div>
+            </div>
+            <div class="modal-panel">
+                <h4>🖱️ 3D Model (drag)</h4>
+                <div class="model-container" id="modelContainer"></div>
+                <div class="model-hint">← drag to rotate · scroll to zoom →</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // =============================================
+    //  ПЕРЕВОДЫ
+    // =============================================
+    const translations = {
+        ru: {
+            siteTitle: '3D ПОРТФОЛИО',
+            siteSubtitle: 'Fusion 360 · Blender · Инжиниринг',
+            navAbout: 'Обо мне',
+            navSkills: 'Навыки',
+            navPortfolio: 'Портфолио',
+            navContacts: 'Контакты',
+            navGallery: 'Галерея',
+            navBlog: 'Блог',
+            sidebarInfo: '📋 Инфо',
+            sidebarName: 'Имя: Алекс',
+            sidebarRole: 'Роль: 3D-Инженер',
+            sidebarExp: 'Опыт: 7+ лет',
+            sidebarLoc: 'Локация: 🌍',
+            sidebarCounter: '🔢 Посетители',
+            sidebarBadges: '🏷️ Бейджи',
+            aboutTitle: 'Обо мне',
+            aboutText1: 'Привет! Я <span class="highlight">Алекс</span> — 3D-моделлер и инженер. Работаю с <strong>Fusion 360</strong> и <strong>Blender</strong>.',
+            aboutText2: 'Создаю точные инженерные модели, прототипы для 3D-печати, а также художественные визуализации. Моя страсть — превращать идеи в цифровые объекты, которые можно напечатать, собрать или использовать в играх.',
+            aboutText3: '🔧 CAD · 🎨 Дизайн · 🖨️ 3D Печать',
+            skillsTitle: 'Навыки',
+            skill3dPrint: '3D-печать',
+            skillCAD: 'CAD модели',
+            skillRender: 'Рендеринг',
+            skillParam: 'Параметрика',
+            portfolioTitle: 'Портфолио',
+            port1name: 'Механическая деталь',
+            port2name: 'Архитектурный проект',
+            port3name: 'Робот-манипулятор',
+            port4name: 'Декоративная ваза',
+            port5name: 'Крепёжный узел',
+            port6name: 'Игровой персонаж',
+            contactsTitle: 'Контакты',
+            contactTelegram: '(Telegram)',
+            guestbookText: '✍️ Оставьте запись в моей гостевой книге!',
+            guestbookBtn: 'Подписать',
+            footerText: '© 2025 Алекс · 3D Портфолио · Сделано с',
+            footerText2: 'и кодом',
+        },
+        en: {
+            siteTitle: '3D PORTFOLIO',
+            siteSubtitle: 'Fusion 360 · Blender · Engineering',
+            navAbout: 'About',
+            navSkills: 'Skills',
+            navPortfolio: 'Portfolio',
+            navContacts: 'Contacts',
+            navGallery: 'Gallery',
+            navBlog: 'Blog',
+            sidebarInfo: '📋 Info',
+            sidebarName: 'Name: Alex',
+            sidebarRole: 'Role: 3D Engineer',
+            sidebarExp: 'Experience: 7+ years',
+            sidebarLoc: 'Location: 🌍',
+            sidebarCounter: '🔢 Visitors',
+            sidebarBadges: '🏷️ Badges',
+            aboutTitle: 'About Me',
+            aboutText1: 'Hi! I\'m <span class="highlight">Alex</span> – a 3D modeler and engineer. I work with <strong>Fusion 360</strong> and <strong>Blender</strong>.',
+            aboutText2: 'I create precise engineering models, prototypes for 3D printing, and artistic visualizations. My passion is turning ideas into digital objects that can be printed, assembled, or used in games.',
+            aboutText3: '🔧 CAD · 🎨 Design · 🖨️ 3D Print',
+            skillsTitle: 'My Skills',
+            skill3dPrint: '3D Printing',
+            skillCAD: 'CAD Models',
+            skillRender: 'Rendering',
+            skillParam: 'Parametrics',
+            portfolioTitle: 'Portfolio',
+            port1name: 'Mechanical Part',
+            port2name: 'Architectural Project',
+            port3name: 'Robot Manipulator',
+            port4name: 'Decorative Vase',
+            port5name: 'Fastening Unit',
+            port6name: 'Game Character',
+            contactsTitle: 'Contacts',
+            contactTelegram: '(Telegram)',
+            guestbookText: '✍️ Leave a message in my guestbook!',
+            guestbookBtn: 'Sign',
+            footerText: '© 2025 Alex · 3D Portfolio · Made with',
+            footerText2: 'and code',
+        }
+    };
+
+    // =============================================
+    //  ДАННЫЕ ПРОЕКТОВ
+    // =============================================
+    const projectsData = {
+        mechanical:   { ru: 'Механическая деталь', en: 'Mechanical Part', emoji: '⚙️', color: 0x6c8cff, geo: 'gear', scale: 1.2 },
+        architecture: { ru: 'Архитектурный проект', en: 'Architectural Project', emoji: '🏗️', color: 0x6c8cff, geo: 'building', scale: 1.0 },
+        robot:        { ru: 'Робот-манипулятор', en: 'Robot Manipulator', emoji: '🤖', color: 0x6c8cff, geo: 'robot', scale: 1.0 },
+        vase:         { ru: 'Декоративная ваза', en: 'Decorative Vase', emoji: '🏺', color: 0x6c8cff, geo: 'vase', scale: 1.1 },
+        fastener:     { ru: 'Крепёжный узел', en: 'Fastening Unit', emoji: '🔩', color: 0x6c8cff, geo: 'fastener', scale: 1.0 },
+        character:    { ru: 'Игровой персонаж', en: 'Game Character', emoji: '🧸', color: 0x6c8cff, geo: 'character', scale: 1.0 },
+    };
+
+    // =============================================
+    //  ЛОГИКА ЯЗЫКА
+    // =============================================
+    let currentLang = 'ru';
+
+    function setLanguage(lang) {
+        currentLang = lang;
+        const dict = translations[lang];
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            if (dict[key]) el.innerHTML = dict[key];
+        });
+        document.title = lang === 'ru' ? '3D Портфолио' : '3D Portfolio';
+        document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+        localStorage.setItem('portfolio_lang', lang);
+    }
+
+    const saved = localStorage.getItem('portfolio_lang');
+    setLanguage(saved === 'en' ? 'en' : 'ru');
+
+    // =============================================
+    //  СЧЁТЧИК
+    // =============================================
+    let counter = 42;
+    try {
+        const stored = localStorage.getItem('portfolio_counter');
+        if (stored) counter = parseInt(stored, 10) + 1;
+        localStorage.setItem('portfolio_counter', counter);
+    } catch(e) {}
+    document.getElementById('visitorCounter').textContent = String(counter).padStart(5, '0');
+
+    // =============================================
+    //  МОДАЛЬНОЕ ОКНО И 3D
+    // =============================================
+    const overlay = document.getElementById('projectModalOverlay');
+    const closeBtn = document.getElementById('modalCloseBtn');
+    const modalTitle = document.getElementById('modalProjectTitle');
+    const renderEmoji = document.getElementById('renderEmoji');
+    const container = document.getElementById('modelContainer');
+
+    let scene, camera, renderer, controls, animId;
+
+    function closeModal() {
+        overlay.classList.remove('active');
+        if (animId) cancelAnimationFrame(animId);
+        if (renderer) { renderer.dispose(); renderer = null; }
+        if (scene) { scene.traverse(o => { if (o.geometry) o.geometry.dispose(); if (o.material) o.material.dispose(); }); scene = null; }
+        if (controls) { controls.dispose(); controls = null; }
+        container.innerHTML = '';
+    }
+
+    closeBtn.addEventListener('click', closeModal);
+    overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
+
+    function createObject(type, color) {
+        const g = new THREE.Group();
+        const mat = new THREE.MeshStandardMaterial({ color, roughness: 0.3, metalness: 0.7, emissive: new THREE.Color(color).multiplyScalar(0.15) });
+        switch(type) {
+            case 'gear': {
+                const b = new THREE.Mesh(new THREE.CylinderGeometry(1,1,0.3,32), mat);
+                const t = new THREE.Mesh(new THREE.TorusGeometry(1.15,0.12,16,32), mat);
+                t.rotation.x = Math.PI/2; t.position.z = 0.15;
+                const h = new THREE.Mesh(new THREE.CylinderGeometry(0.3,0.3,0.5,16), mat);
+                g.add(b,t,h); break;
+            }
+            case 'building': {
+                const body = new THREE.Mesh(new THREE.BoxGeometry(1.5,2,1), mat);
+                const roof = new THREE.Mesh(new THREE.ConeGeometry(1.1,0.7,4), mat);
+                roof.position.y = 1.35; roof.rotation.y = Math.PI/4;
+                const win = new THREE.Mesh(new THREE.BoxGeometry(1.55,0.2,1.05), new THREE.MeshStandardMaterial({ color: 0x6c8cff, emissive: 0x6c8cff, emissiveIntensity: 0.2 }));
+                win.position.y = 0.2;
+                g.add(body,roof,win); break;
+            }
+            case 'robot': {
+                const torso = new THREE.Mesh(new THREE.BoxGeometry(0.8,1.2,0.5), mat);
+                const head = new THREE.Mesh(new THREE.SphereGeometry(0.4,16,16), mat);
+                head.position.y = 0.9;
+                const armL = new THREE.Mesh(new THREE.CylinderGeometry(0.15,0.15,1,8), mat);
+                armL.position.set(-0.6,0.2,0); armL.rotation.z = 0.3;
+                const armR = armL.clone(); armR.position.x = 0.6; armR.rotation.z = -0.3;
+                g.add(torso, head, armL, armR); break;
+            }
+            case 'vase': {
+                const pts = [new THREE.Vector2(0,0), new THREE.Vector2(0.6,0), new THREE.Vector2(0.7,0.3), new THREE.Vector2(0.4,0.8), new THREE.Vector2(0.5,1.2), new THREE.Vector2(0.3,1.4), new THREE.Vector2(0.35,1.5)];
+                g.add(new THREE.Mesh(new THREE.LatheGeometry(pts,32), mat)); break;
+            }
+            case 'fastener': {
+                const bolt = new THREE.Mesh(new THREE.CylinderGeometry(0.3,0.3,1.2,6), mat);
+                bolt.rotation.x = Math.PI/2;
+                const head = new THREE.Mesh(new THREE.CylinderGeometry(0.5,0.5,0.3,6), mat);
+                head.position.z = 0.7; head.rotation.x = Math.PI/2;
+                const nut = new THREE.Mesh(new THREE.CylinderGeometry(0.45,0.45,0.4,6), mat);
+                nut.position.z = 0; nut.rotation.x = Math.PI/2;
+                g.add(bolt, head, nut); break;
+            }
+            case 'character': {
+                const body = new THREE.Mesh(new THREE.SphereGeometry(0.8,16,16), mat);
+                const head = new THREE.Mesh(new THREE.SphereGeometry(0.5,16,16), mat);
+                head.position.y = 1.1;
+                const eL = new THREE.Mesh(new THREE.SphereGeometry(0.1,8,8), new THREE.MeshStandardMaterial({ color: 0xf0f4ff }));
+                eL.position.set(-0.18,1.15,0.4);
+                const eR = eL.clone(); eR.position.x = 0.18;
+                g.add(body, head, eL, eR); break;
+            }
+            default: g.add(new THREE.Mesh(new THREE.BoxGeometry(1,1,1), mat));
+        }
+        return g;
+    }
+
+    function initThree(projectId) {
+        const proj = projectsData[projectId];
+        if (!proj) return;
+        container.innerHTML = '';
+
+        const w = container.clientWidth || 400;
+        const h = container.clientHeight || 280;
+
+        scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x0b1a33);
+
+        camera = new THREE.PerspectiveCamera(45, w/h, 0.1, 100);
+        camera.position.set(3,2,4);
+        camera.lookAt(0,0,0);
+
+        renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(w, h);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+        renderer.shadowMap.enabled = true;
+        container.appendChild(renderer.domElement);
+
+        const ambient = new THREE.AmbientLight(0xffffff, 0.5);
+        scene.add(ambient);
+        const dir = new THREE.DirectionalLight(0xffffff,0.9);
+        dir.position.set(5,10,7); dir.castShadow = true;
+        scene.add(dir);
+        const fill = new THREE.PointLight(0x6c8cff,0.4);
+        fill.position.set(-3,1,2);
+        scene.add(fill);
+
+        const obj = createObject(proj.geo, proj.color);
+        obj.scale.setScalar(proj.scale || 1);
+        obj.castShadow = true; obj.receiveShadow = true;
+        scene.add(obj);
+
+        const floor = new THREE.Mesh(new THREE.PlaneGeometry(6,6), new THREE.ShadowMaterial({ opacity: 0.3 }));
+        floor.rotation.x = -Math.PI/2;
+        floor.position.y = -1.2;
+        floor.receiveShadow = true;
+        scene.add(floor);
+
+        controls = new THREE.OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+        controls.dampingFactor = 0.08;
+        controls.autoRotate = true;
+        controls.autoRotateSpeed = 1.5;
+        controls.target.set(0,0,0);
+        controls.update();
+
+        function animate() {
+            animId = requestAnimationFrame(animate);
+            controls.update();
+            renderer.render(scene, camera);
+        }
+        animate();
+    }
+
+    function openProjectModal(id) {
+        const proj = projectsData[id];
+        if (!proj) return;
+        modalTitle.textContent = proj[currentLang] || proj.ru;
+        renderEmoji.textContent = proj.emoji;
+        overlay.classList.add('active');
+        setTimeout(() => initThree(id), 60);
+    }
+
+    window.addEventListener('resize', () => {
+        if (renderer && camera && container) {
+            const w = container.clientWidth, h = container.clientHeight || 280;
+            camera.aspect = w/h;
+            camera.updateProjectionMatrix();
+            renderer.setSize(w,h);
+        }
+    });
+
+    // Плавный скролл
+    document.querySelectorAll('.nav-btn[href^="#"]').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+        });
+    });
+</script>
+</body>
+</html>
