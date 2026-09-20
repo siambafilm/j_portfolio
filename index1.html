@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html><body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/DRACOLoader.js"></script>
+<script>
+const url = 'models/claws.glb';   // ← меняйте на нужный
+const loader = new THREE.GLTFLoader();
+// ВСЕГДА подключаем Draco — если модель не сжата, он просто не используется
+const draco = new THREE.DRACOLoader();
+draco.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.5.5/');
+loader.setDRACOLoader(draco);
+
+loader.load(
+  url,
+  g  => console.log('✅ OK', g),
+  x  => console.log('⏳ progress', x.loaded, '/', x.total),
+  e  => console.error('❌ ERROR', e)
+);
+</script>
+</body></html>

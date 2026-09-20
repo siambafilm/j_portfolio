@@ -1,0 +1,215 @@
+{
+  "settings": {
+    "languages": ["ru", "en"],
+    "defaultLang": "ru",
+    "storageKeys": { "lang": "portfolio_lang", "counter": "portfolio_counter" },
+    "counterStart": 42,
+    "pageTitle": { "ru": "3D Портфолио", "en": "3D Portfolio" }
+  },
+  "labels": {
+    "navAbout": { "ru": "Обо мне", "en": "About" },
+    "navSkills": { "ru": "Навыки", "en": "Skills" },
+    "navPortfolio": { "ru": "Портфолио", "en": "Portfolio" },
+    "navContacts": { "ru": "Контакты", "en": "Contacts" },
+    "navGallery": { "ru": "Галерея", "en": "Gallery" },
+    "navBlog": { "ru": "Блог", "en": "Blog" },
+    "sidebarInfo": { "ru": "📋 Инфо", "en": "📋 Info" },
+    "sidebarCounter": { "ru": "🔢 Посетители", "en": "🔢 Visitors" },
+    "sidebarBadges": { "ru": "🏷️ Бейджи", "en": "🏷️ Badges" },
+    "aboutTitle": { "ru": "Обо мне", "en": "About Me" },
+    "skillsTitle": { "ru": "Навыки", "en": "My Skills" },
+    "portfolioTitle": { "ru": "Портфолио", "en": "Portfolio" },
+    "contactsTitle": { "ru": "Контакты", "en": "Contacts" },
+    "guestbookText": { "ru": "✍️ Оставьте запись в моей гостевой книге!", "en": "✍️ Leave a message in my guestbook!" },
+    "guestbookBtn": { "ru": "Подписать", "en": "Sign" },
+    "guestbookAlert": { "ru": "📖 Скоро!", "en": "📖 Coming soon!" },
+    "modalGallery": { "ru": "🎨 Галерея", "en": "🎨 Gallery" },
+    "modal3D": { "ru": "🖱️ 3D Модель (перетащите)", "en": "🖱️ 3D Model (drag)" },
+    "modalHint": { "ru": "← перетащите для вращения · прокрутите для масштаба →", "en": "← drag to rotate · scroll to zoom →" }
+  },
+  "site": {
+    "logoIcon": "🧊",
+    "title": { "ru": "3D <span>ПОРТФОЛИО</span>", "en": "3D <span>PORTFOLIO</span>" },
+    "subtitle": { "ru": "Fusion 360 · Blender · Инжиниринг", "en": "Fusion 360 · Blender · Engineering" }
+  },
+  "sidebar": {
+    "info": [
+      { "ru": "Имя: Женя", "en": "Name: Zhenya" },
+      { "ru": "Роль: 3D-Инженер", "en": "Role: 3D Engineer" },
+      { "ru": "Опыт: 1 год", "en": "Experience: 1 year" },
+      { "ru": "Локация: 🌍", "en": "Location: 🌍" }
+    ],
+    "badges": ["Fusion 360", "Blender", "3D Print", "CAD"]
+  },
+  "about": {
+    "avatar": "👩‍💻",
+    "paragraphs": [
+      { "ru": "Привет! Я <span class=\"highlight\">Женя</span> — 3D-моделлер и инженер. Работаю с <strong>Fusion 360</strong> и <strong>Blender</strong>.", "en": "Hi! I'm <span class=\"highlight\">Zhenya</span> – a 3D modeler and engineer. I work with <strong>Fusion 360</strong> and <strong>Blender</strong>." },
+      { "ru": "Создаю точные инженерные модели, прототипы для 3D-печати, а также художественные визуализации.", "en": "I create precise engineering models, prototypes for 3D printing, and artistic visualizations." },
+      { "ru": "🔧 CAD · 🎨 Дизайн · 🖨️ 3D Печать", "en": "🔧 CAD · 🎨 Design · 🖨️ 3D Print" }
+    ]
+  },
+  "skills": [
+    { "icon": "⚙️", "name": "Fusion 360", "level": 80 },
+    { "icon": "🧊", "name": "Blender", "level": 70 },
+    { "icon": "🖨️", "name": { "ru": "3D-печать", "en": "3D Printing" }, "level": 80 },
+    { "icon": "📐", "name": { "ru": "CAD модели", "en": "CAD Models" }, "level": 92 },
+    { "icon": "🎨", "name": { "ru": "Рендеринг", "en": "Rendering" }, "level": 75 },
+    { "icon": "📦", "name": { "ru": "Параметрика", "en": "Parametrics" }, "level": 70 }
+  ],
+  "projects": [
+    {
+      "id": "claws",
+      "name": { "ru": "Клешни", "en": "Claws" },
+      "tag": "3D Model",
+      "icon": "🦀",
+      "images": [
+        { "src": "img/claws1.png", "caption": { "ru": "Вид 1", "en": "View 1" } },
+        { "src": "img/claws2.png", "caption": { "ru": "Вид 2", "en": "View 2" } }
+      ],
+      "description": {
+        "ru": "3D-модель клешней манипулятора.",
+        "en": "3D model of manipulator claws."
+      },
+      "model": {
+        "url": "models/claws.glb",
+        "scale": 1.0
+      }
+    },
+    {
+      "id": "finger",
+      "name": { "ru": "Палец", "en": "Finger" },
+      "tag": "3D Model",
+      "icon": "☝️",
+      "images": [
+        { "src": "img/finger1.png", "caption": { "ru": "Вид 1", "en": "View 1" } },
+        { "src": "img/finger2.png", "caption": { "ru": "Вид 2", "en": "View 2" } }
+      ],
+      "description": {
+        "ru": "Деталь механического пальца.",
+        "en": "Mechanical finger part."
+      },
+      "model": {
+        "url": "models/finger.glb",
+        "scale": 1.0
+      }
+    },
+    {
+      "id": "nakladka_boker",
+      "name": { "ru": "Накладка Boker", "en": "Boker Overlay" },
+      "tag": "3D Model",
+      "icon": "🛠️",
+      "images": [
+        { "src": "img/nakladki_boker.png", "caption": { "ru": "Накладка", "en": "Overlay" } }
+      ],
+      "description": {
+        "ru": "Боковая накладка для инструмента или ножа Boker.",
+        "en": "Side overlay for a Boker tool or knife."
+      },
+      "model": {
+        "url": "models/nakladka_boker.glb",
+        "scale": 1.0
+      }
+    },
+    {
+      "id": "noga",
+      "name": { "ru": "Нога", "en": "Leg" },
+      "tag": "3D Model",
+      "icon": "🦿",
+      "images": [
+        { "src": "img/noga.png", "caption": { "ru": "Механическая нога", "en": "Mechanical leg" } }
+      ],
+      "description": {
+        "ru": "Элемент опорной ноги робота.",
+        "en": "Robot support leg element."
+      },
+      "model": {
+        "url": "models/noga.glb",
+        "scale": 1.0
+      }
+    },
+    {
+      "id": "nozik",
+      "name": { "ru": "Ножик", "en": "Knife" },
+      "tag": "3D Model",
+      "icon": "🔪",
+      "images": [
+        { "src": "img/nozik1.png", "caption": { "ru": "Вид 1", "en": "View 1" } },
+        { "src": "img/nozik2.png", "caption": { "ru": "Вид 2", "en": "View 2" } }
+      ],
+      "description": {
+        "ru": "Модель складного или фиксированного ножа.",
+        "en": "Model of a folding or fixed knife."
+      },
+      "model": {
+        "url": "models/nozik.glb",
+        "scale": 1.0
+      }
+    },
+    {
+      "id": "parovozik",
+      "name": { "ru": "Паровозик", "en": "Locomotive" },
+      "tag": "3D Model",
+      "icon": "🚂",
+      "images": [
+        { "src": "img/parovozik1.png", "caption": { "ru": "Вид 1", "en": "View 1" } },
+        { "src": "img/parovozik2.png", "caption": { "ru": "Вид 2", "en": "View 2" } },
+        { "src": "img/parovozik3.png", "caption": { "ru": "Вид 3", "en": "View 3" } }
+      ],
+      "description": {
+        "ru": "Детализированная модель игрушечного или декоративного паровоза.",
+        "en": "Detailed model of a toy or decorative locomotive."
+      },
+      "model": {
+        "url": "models/parovozik.glb",
+        "scale": 1.0
+      }
+    },
+    {
+      "id": "plata",
+      "name": { "ru": "Плата", "en": "Circuit Board" },
+      "tag": "3D Model",
+      "icon": "📟",
+      "images": [
+        { "src": "img/plata.png", "caption": { "ru": "Печатная плата", "en": "PCB" } }
+      ],
+      "description": {
+        "ru": "Модель печатной платы электронного устройства.",
+        "en": "Model of an electronic printed circuit board."
+      },
+      "model": {
+        "url": "models/plata.glb",
+        "scale": 1.0
+      }
+    },
+    {
+      "id": "servo",
+      "name": { "ru": "Сервопривод", "en": "Servo Motor" },
+      "tag": "3D Model",
+      "icon": "⚙️",
+      "images": [
+        { "src": "img/servo.png", "caption": { "ru": "Сервопривод", "en": "Servo motor" } }
+      ],
+      "description": {
+        "ru": "Модель сервопривода для робототехники.",
+        "en": "Servo motor model for robotics."
+      },
+      "model": {
+        "url": "models/servo.glb",
+        "scale": 1.0
+      }
+    }
+  ],
+  "contacts": [
+    { "icon": "📧", "text": "radiantgamestudios@gmail.com", "href": "mailto:radiantgamestudios@gmail.com" },
+    { "icon": "💬", "text": "@evgeeeesha27", "href": "https://t.me/evgeeeesha27", "note": { "ru": "(Telegram)", "en": "(Telegram)" } },
+    { "icon": "📱", "text": "+7 (928) 936-21-22", "href": "tel:+79289362122" }
+  ],
+  "footer": {
+    "text": {
+      "ru": "© 2026 Женя · 3D Портфолио · Сделано с <span class=\"heart\">♥</span> и кодом",
+      "en": "© 2026 Zhenya · 3D Portfolio · Made with <span class=\"heart\">♥</span> and code"
+    },
+    "badges": ["HTML5", "CSS3", "JS", "Three.js", "Modern"]
+  }
+}

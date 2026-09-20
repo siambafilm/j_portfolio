@@ -11,14 +11,12 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/DRACOLoader.js"></script>
 
     <style>
         /* ===== БАЗА ===== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
             --bg-gradient: linear-gradient(145deg, #0b1a33 0%, #1e2a4a 40%, #2d1b4e 100%);
@@ -49,10 +47,7 @@
             backdrop-filter: blur(2px);
         }
 
-        .container {
-            max-width: 1200px;
-            width: 100%;
-        }
+        .container { max-width: 1200px; width: 100%; }
 
         /* ===== СТЕКЛЯННЫЕ КАРТОЧКИ ===== */
         .glass {
@@ -81,16 +76,8 @@
             gap: 16px;
         }
 
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .logo-icon {
-            font-size: 44px;
-            line-height: 1;
-        }
+        .logo { display: flex; align-items: center; gap: 16px; }
+        .logo-icon { font-size: 44px; line-height: 1; }
 
         .logo-text {
             font-weight: 700;
@@ -99,9 +86,7 @@
             color: var(--text-primary);
         }
 
-        .logo-text span {
-            color: var(--accent);
-        }
+        .logo-text span { color: var(--accent); }
 
         .logo-sub {
             font-size: 17px;
@@ -132,10 +117,7 @@
             transition: 0.2s;
         }
 
-        .lang-btn:hover {
-            background: rgba(255,255,255,0.08);
-            color: #fff;
-        }
+        .lang-btn:hover { background: rgba(255,255,255,0.08); color: #fff; }
 
         .lang-btn.active {
             background: var(--accent);
@@ -166,33 +148,15 @@
             text-decoration: none;
         }
 
-        .nav-btn:hover {
-            background: rgba(255,255,255,0.08);
-            color: #fff;
-        }
-
-        .nav-btn.construction {
-            opacity: 0.4;
-            cursor: not-allowed;
-        }
+        .nav-btn:hover { background: rgba(255,255,255,0.08); color: #fff; }
+        .nav-btn.construction { opacity: 0.4; cursor: not-allowed; }
 
         /* ===== ОСНОВНАЯ СЕТКА ===== */
-        .content {
-            display: grid;
-            grid-template-columns: 250px 1fr;
-            gap: 28px;
-        }
+        .content { display: grid; grid-template-columns: 250px 1fr; gap: 28px; }
 
         /* ===== САЙДБАР ===== */
-        .sidebar {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .card {
-            padding: 22px 24px;
-        }
+        .sidebar { display: flex; flex-direction: column; gap: 20px; }
+        .card { padding: 22px 24px; }
 
         .card h3 {
             font-size: 16px;
@@ -205,10 +169,7 @@
             border-bottom: 1px solid rgba(255,255,255,0.08);
         }
 
-        .card ul {
-            list-style: none;
-            padding: 0;
-        }
+        .card ul { list-style: none; padding: 0; }
 
         .card ul li {
             font-size: 18px;
@@ -220,9 +181,7 @@
             gap: 10px;
         }
 
-        .card ul li:last-child {
-            border-bottom: none;
-        }
+        .card ul li:last-child { border-bottom: none; }
 
         .counter {
             font-family: 'Inter', monospace;
@@ -257,15 +216,8 @@
         }
 
         /* ===== ОСНОВНОЙ КОНТЕНТ ===== */
-        .main {
-            display: flex;
-            flex-direction: column;
-            gap: 28px;
-        }
-
-        .section {
-            padding: 28px 32px;
-        }
+        .main { display: flex; flex-direction: column; gap: 28px; }
+        .section { padding: 28px 32px; }
 
         .section-title {
             font-size: var(--font-large);
@@ -277,18 +229,10 @@
             color: var(--text-primary);
         }
 
-        .section-title .icon {
-            font-size: 34px;
-            color: var(--accent);
-        }
+        .section-title .icon { font-size: 34px; color: var(--accent); }
 
         /* About */
-        .about {
-            display: flex;
-            gap: 32px;
-            align-items: flex-start;
-            flex-wrap: wrap;
-        }
+        .about { display: flex; gap: 32px; align-items: flex-start; flex-wrap: wrap; }
 
         .avatar {
             width: 140px;
@@ -310,9 +254,8 @@
             line-height: 1.8;
         }
 
-        .about-text strong {
-            color: #fff;
-        }
+        .about-text p + p { margin-top: 14px; }
+        .about-text strong { color: #fff; }
 
         .highlight {
             background: rgba(108, 140, 255, 0.2);
@@ -343,17 +286,8 @@
             border-color: rgba(255,255,255,0.2);
         }
 
-        .skill-item .icon {
-            font-size: 44px;
-            display: block;
-            margin-bottom: 6px;
-        }
-
-        .skill-item .name {
-            font-size: var(--font-base);
-            font-weight: 600;
-            color: var(--text-primary);
-        }
+        .skill-item .icon { font-size: 44px; display: block; margin-bottom: 6px; }
+        .skill-item .name { font-size: var(--font-base); font-weight: 600; color: var(--text-primary); }
 
         .skill-bar {
             width: 100%;
@@ -366,9 +300,10 @@
 
         .skill-bar-fill {
             height: 100%;
+            width: 0;
             background: linear-gradient(90deg, var(--accent), #a78bfa);
             border-radius: 6px;
-            transition: width 0.4s;
+            transition: width 0.6s ease;
         }
 
         .skill-label {
@@ -409,32 +344,17 @@
             justify-content: center;
             font-size: 56px;
             color: var(--accent);
+            overflow: hidden;
         }
 
-        .portfolio-info {
-            padding: 14px 16px 16px;
-            text-align: center;
-        }
+        .portfolio-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-        .portfolio-name {
-            font-weight: 600;
-            font-size: 18px;
-            color: var(--text-primary);
-        }
-
-        .portfolio-tag {
-            font-size: 15px;
-            color: var(--text-muted);
-        }
+        .portfolio-info { padding: 14px 16px 16px; text-align: center; }
+        .portfolio-name { font-weight: 600; font-size: 18px; color: var(--text-primary); }
+        .portfolio-tag { font-size: 15px; color: var(--text-muted); }
 
         /* Contacts */
-        .contacts {
-            list-style: none;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-        }
+        .contacts { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 14px; }
 
         .contacts li {
             display: flex;
@@ -454,20 +374,10 @@
             border-color: rgba(255,255,255,0.2);
         }
 
-        .contacts li .icon {
-            font-size: 28px;
-            color: var(--accent);
-        }
+        .contacts li .icon { font-size: 28px; color: var(--accent); }
 
-        .contacts li a {
-            color: var(--accent);
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        .contacts li a:hover {
-            text-decoration: underline;
-        }
+        .contacts li a { color: var(--accent); text-decoration: none; font-weight: 500; }
+        .contacts li a:hover { text-decoration: underline; }
 
         .guestbook {
             margin-top: 20px;
@@ -509,9 +419,7 @@
             font-size: 18px;
         }
 
-        .footer .heart {
-            color: var(--accent);
-        }
+        .footer .heart { color: var(--accent); }
 
         .footer-badges {
             display: flex;
@@ -545,10 +453,7 @@
             transition: opacity 0.3s;
         }
 
-        .modal-overlay.active {
-            opacity: 1;
-            pointer-events: all;
-        }
+        .modal-overlay.active { opacity: 1; pointer-events: all; }
 
         .modal {
             background: rgba(20, 30, 50, 0.85);
@@ -574,30 +479,42 @@
             color: var(--text-secondary);
             cursor: pointer;
             transition: 0.2s;
+            line-height: 1;
+            z-index: 20;
         }
 
-        .modal-close:hover {
-            transform: rotate(90deg);
-            color: #fff;
-        }
+        .modal-close:hover { transform: rotate(90deg); color: #fff; }
 
         .modal-title {
             font-size: var(--font-large);
             font-weight: 700;
-            margin-bottom: 24px;
+            margin-bottom: 16px;
             padding-right: 40px;
             color: var(--text-primary);
         }
 
+        .modal-desc {
+            font-size: 18px;
+            line-height: 1.7;
+            color: var(--text-secondary);
+            background: rgba(255,255,255,0.04);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius);
+            padding: 16px 20px;
+            margin-bottom: 24px;
+        }
+
+        .modal-desc:empty { display: none; }
+
         .modal-content {
-            display: flex;
-            gap: 28px;
-            flex-wrap: wrap;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            align-items: start;
         }
 
         .modal-panel {
-            flex: 1;
-            min-width: 250px;
+            min-width: 0;
             background: rgba(255,255,255,0.04);
             border-radius: var(--radius);
             padding: 18px;
@@ -615,35 +532,79 @@
             letter-spacing: 0.5px;
         }
 
-        .render-box {
+        /* ===== ГАЛЕРЕЯ ===== */
+        .gallery { display: flex; flex-direction: column; gap: 10px; }
+
+        .gallery-main {
+            position: relative;
             aspect-ratio: 4/3;
             background: rgba(255,255,255,0.03);
             border-radius: 12px;
+            overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 88px;
+        }
+
+        .gallery-main img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+            background: rgba(0,0,0,0.15);
+        }
+
+        .gallery-fallback { font-size: 88px; color: var(--text-muted); line-height: 1; }
+
+        .gallery-caption {
+            font-size: 16px;
+            color: var(--text-muted);
+            text-align: center;
+            min-height: 24px;
+        }
+
+        .gallery-thumbs {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .gallery-thumb {
+            width: 68px;
+            height: 52px;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            border: 2px solid transparent;
+            opacity: 0.55;
+            transition: 0.2s;
+            background: rgba(255,255,255,0.06);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
             color: var(--text-muted);
         }
 
+        .gallery-thumb:hover { opacity: 1; }
+        .gallery-thumb.active { border-color: var(--accent); opacity: 1; }
+        .gallery-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+        /* ===== 3D ===== */
         .model-container {
+            position: relative;          /* оверлей позиционируется относительно него */
             width: 100%;
-            min-height: 280px;
+            aspect-ratio: 4/3;
+            min-height: 240px;
             background: rgba(255,255,255,0.03);
             border-radius: 12px;
             overflow: hidden;
             cursor: grab;
         }
 
-        .model-container:active {
-            cursor: grabbing;
-        }
-
-        .model-container canvas {
-            display: block;
-            width: 100%;
-            height: 100%;
-        }
+        .model-container:active { cursor: grabbing; }
+        .model-container canvas { display: block; width: 100%; height: 100%; }
 
         .model-hint {
             font-size: 16px;
@@ -652,63 +613,72 @@
             margin-top: 8px;
         }
 
+        /* Оверлей загрузки/ошибки — внутри .model-container, не перекрывает модалку */
+        .model-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+            text-align: center;
+            font-size: 16px;
+            color: #94a3b8;
+            background: rgba(15, 23, 42, 0.85);
+            z-index: 5;
+            word-break: break-word;
+            line-height: 1.5;
+            white-space: pre-line;
+        }
+
+        .model-overlay.error { color: #ff8080; }
+
+        /* ===== ЛОАДЕР ===== */
+        .loader {
+            position: fixed;
+            inset: 0;
+            z-index: 20000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #0b1a33;
+            color: var(--text-secondary);
+            font-size: 22px;
+            text-align: center;
+            padding: 30px;
+            transition: opacity 0.35s;
+        }
+
+        .loader.hidden { opacity: 0; pointer-events: none; }
+        .loader .err { color: #ff8080; max-width: 700px; line-height: 1.7; font-size: 19px; }
+        .loader code {
+            background: rgba(255,255,255,0.08);
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-size: 17px;
+        }
+
         /* ===== АДАПТИВ ===== */
         @media (max-width: 850px) {
-            .content {
-                grid-template-columns: 1fr;
-            }
-            .sidebar {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 20px;
-            }
-            .header {
-                flex-direction: column;
-                align-items: stretch;
-                text-align: center;
-            }
-            .logo {
-                justify-content: center;
-            }
-            .lang-switch {
-                justify-content: center;
-            }
-            .nav {
-                justify-content: center;
-            }
+            .content { grid-template-columns: 1fr; }
+            .sidebar { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+            .header { flex-direction: column; align-items: stretch; text-align: center; }
+            .logo { justify-content: center; }
+            .lang-switch { justify-content: center; }
+            .nav { justify-content: center; }
+            .modal-content { grid-template-columns: 1fr; }
         }
 
         @media (max-width: 550px) {
-            body {
-                padding: 14px;
-                font-size: 18px;
-            }
-            :root {
-                --font-base: 18px;
-                --font-large: 26px;
-            }
-            .sidebar {
-                grid-template-columns: 1fr;
-            }
-            .section {
-                padding: 20px;
-            }
-            .nav-btn {
-                font-size: 17px;
-                padding: 10px 18px;
-            }
-            .modal {
-                padding: 20px;
-            }
-            .modal-title {
-                font-size: 24px;
-            }
-            .portfolio-grid {
-                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            }
-            .header {
-                padding: 20px;
-            }
+            body { padding: 14px; font-size: 18px; }
+            :root { --font-base: 18px; --font-large: 26px; }
+            .sidebar { grid-template-columns: 1fr; }
+            .section { padding: 20px; }
+            .nav-btn { font-size: 17px; padding: 10px 18px; }
+            .modal { padding: 20px; }
+            .modal-title { font-size: 24px; }
+            .portfolio-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+            .header { padding: 20px; }
         }
     </style>
 </head>
@@ -718,26 +688,23 @@
     <!-- ===== ШАПКА ===== -->
     <header class="header glass">
         <div class="logo">
-            <span class="logo-icon">🧊</span>
+            <span class="logo-icon" id="logoIcon">🧊</span>
             <div>
-                <div class="logo-text" data-i18n="siteTitle">3D <span>PORTFOLIO</span></div>
-                <div class="logo-sub" data-i18n="siteSubtitle">Fusion 360 · Blender · Engineering</div>
+                <div class="logo-text" id="logoTitle"></div>
+                <div class="logo-sub" id="logoSub"></div>
             </div>
         </div>
-        <div class="lang-switch">
-            <button class="lang-btn" data-lang="ru" onclick="setLanguage('ru')">RU</button>
-            <button class="lang-btn" data-lang="en" onclick="setLanguage('en')">EN</button>
-        </div>
+        <div class="lang-switch" id="langSwitch"></div>
     </header>
 
     <!-- ===== НАВИГАЦИЯ ===== -->
     <nav class="nav glass">
-        <a href="#about" class="nav-btn" data-i18n="navAbout">About</a>
-        <a href="#skills" class="nav-btn" data-i18n="navSkills">Skills</a>
-        <a href="#portfolio" class="nav-btn" data-i18n="navPortfolio">Portfolio</a>
-        <a href="#contacts" class="nav-btn" data-i18n="navContacts">Contacts</a>
-        <a href="#" class="nav-btn construction" data-i18n="navGallery">Gallery</a>
-        <a href="#" class="nav-btn construction" data-i18n="navBlog">Blog</a>
+        <a href="#about" class="nav-btn" data-i18n="navAbout"></a>
+        <a href="#skills" class="nav-btn" data-i18n="navSkills"></a>
+        <a href="#portfolio" class="nav-btn" data-i18n="navPortfolio"></a>
+        <a href="#contacts" class="nav-btn" data-i18n="navContacts"></a>
+        <a href="#" class="nav-btn construction" data-i18n="navGallery"></a>
+        <a href="#" class="nav-btn construction" data-i18n="navBlog"></a>
     </nav>
 
     <!-- ===== КОНТЕНТ ===== -->
@@ -745,26 +712,16 @@
         <!-- САЙДБАР -->
         <aside class="sidebar">
             <div class="card glass">
-                <h3 data-i18n="sidebarInfo">📋 Info</h3>
-                <ul>
-                    <li data-i18n="sidebarName">Name: Alex</li>
-                    <li data-i18n="sidebarRole">Role: 3D Engineer</li>
-                    <li data-i18n="sidebarExp">Experience: 7+ years</li>
-                    <li data-i18n="sidebarLoc">Location: 🌍</li>
-                </ul>
+                <h3 data-i18n="sidebarInfo"></h3>
+                <ul id="sidebarInfoList"></ul>
             </div>
             <div class="card glass">
-                <h3 data-i18n="sidebarCounter">🔢 Visitors</h3>
-                <div class="counter" id="visitorCounter">00042</div>
+                <h3 data-i18n="sidebarCounter"></h3>
+                <div class="counter" id="visitorCounter">00000</div>
             </div>
             <div class="card glass">
-                <h3 data-i18n="sidebarBadges">🏷️ Badges</h3>
-                <div class="badges">
-                    <span>Fusion 360</span>
-                    <span>Blender</span>
-                    <span>3D Print</span>
-                    <span>CAD</span>
-                </div>
+                <h3 data-i18n="sidebarBadges"></h3>
+                <div class="badges" id="sidebarBadges"></div>
             </div>
         </aside>
 
@@ -774,24 +731,11 @@
             <section class="section glass" id="about">
                 <h2 class="section-title">
                     <span class="icon">👤</span>
-                    <span data-i18n="aboutTitle">About Me</span>
+                    <span data-i18n="aboutTitle"></span>
                 </h2>
                 <div class="about">
-                    <div class="avatar">👩‍💻</div>
-                    <div class="about-text">
-                        <p data-i18n="aboutText1">
-                            Hi! I'm <span class="highlight">Alex</span> – a 3D modeler and engineer.
-                            I work with <strong>Fusion 360</strong> and <strong>Blender</strong>.
-                        </p>
-                        <p data-i18n="aboutText2">
-                            I create precise engineering models, prototypes for 3D printing,
-                            and artistic visualizations. My passion is turning ideas into
-                            digital objects that can be printed, assembled, or used in games.
-                        </p>
-                        <p data-i18n="aboutText3">
-                            🔧 CAD · 🎨 Design · 🖨️ 3D Print
-                        </p>
-                    </div>
+                    <div class="avatar" id="aboutAvatar">👤</div>
+                    <div class="about-text" id="aboutText"></div>
                 </div>
             </section>
 
@@ -799,124 +743,31 @@
             <section class="section glass" id="skills">
                 <h2 class="section-title">
                     <span class="icon">⚡</span>
-                    <span data-i18n="skillsTitle">My Skills</span>
+                    <span data-i18n="skillsTitle"></span>
                 </h2>
-                <div class="skills">
-                    <div class="skill-item">
-                        <span class="icon">⚙️</span>
-                        <div class="name">Fusion 360</div>
-                        <div class="skill-bar"><div class="skill-bar-fill" style="width:95%"></div></div>
-                        <span class="skill-label">95%</span>
-                    </div>
-                    <div class="skill-item">
-                        <span class="icon">🧊</span>
-                        <div class="name">Blender</div>
-                        <div class="skill-bar"><div class="skill-bar-fill" style="width:88%"></div></div>
-                        <span class="skill-label">88%</span>
-                    </div>
-                    <div class="skill-item">
-                        <span class="icon">🖨️</span>
-                        <div class="name" data-i18n="skill3dPrint">3D Printing</div>
-                        <div class="skill-bar"><div class="skill-bar-fill" style="width:80%"></div></div>
-                        <span class="skill-label">80%</span>
-                    </div>
-                    <div class="skill-item">
-                        <span class="icon">📐</span>
-                        <div class="name" data-i18n="skillCAD">CAD Models</div>
-                        <div class="skill-bar"><div class="skill-bar-fill" style="width:92%"></div></div>
-                        <span class="skill-label">92%</span>
-                    </div>
-                    <div class="skill-item">
-                        <span class="icon">🎨</span>
-                        <div class="name" data-i18n="skillRender">Rendering</div>
-                        <div class="skill-bar"><div class="skill-bar-fill" style="width:75%"></div></div>
-                        <span class="skill-label">75%</span>
-                    </div>
-                    <div class="skill-item">
-                        <span class="icon">📦</span>
-                        <div class="name" data-i18n="skillParam">Parametrics</div>
-                        <div class="skill-bar"><div class="skill-bar-fill" style="width:97%"></div></div>
-                        <span class="skill-label">97%</span>
-                    </div>
-                </div>
+                <div class="skills" id="skillsGrid"></div>
             </section>
 
             <!-- PORTFOLIO -->
             <section class="section glass" id="portfolio">
                 <h2 class="section-title">
                     <span class="icon">🖼️</span>
-                    <span data-i18n="portfolioTitle">Portfolio</span>
+                    <span data-i18n="portfolioTitle"></span>
                 </h2>
-                <div class="portfolio-grid">
-                    <div class="portfolio-item" data-project-id="mechanical" onclick="openProjectModal('mechanical')">
-                        <div class="portfolio-image">⚙️</div>
-                        <div class="portfolio-info">
-                            <div class="portfolio-name" data-i18n="port1name">Mechanical Part</div>
-                            <div class="portfolio-tag">Fusion 360</div>
-                        </div>
-                    </div>
-                    <div class="portfolio-item" data-project-id="architecture" onclick="openProjectModal('architecture')">
-                        <div class="portfolio-image">🏗️</div>
-                        <div class="portfolio-info">
-                            <div class="portfolio-name" data-i18n="port2name">Architectural Project</div>
-                            <div class="portfolio-tag">Blender</div>
-                        </div>
-                    </div>
-                    <div class="portfolio-item" data-project-id="robot" onclick="openProjectModal('robot')">
-                        <div class="portfolio-image">🤖</div>
-                        <div class="portfolio-info">
-                            <div class="portfolio-name" data-i18n="port3name">Robot Manipulator</div>
-                            <div class="portfolio-tag">Fusion 360</div>
-                        </div>
-                    </div>
-                    <div class="portfolio-item" data-project-id="vase" onclick="openProjectModal('vase')">
-                        <div class="portfolio-image">🏺</div>
-                        <div class="portfolio-info">
-                            <div class="portfolio-name" data-i18n="port4name">Decorative Vase</div>
-                            <div class="portfolio-tag">Blender</div>
-                        </div>
-                    </div>
-                    <div class="portfolio-item" data-project-id="fastener" onclick="openProjectModal('fastener')">
-                        <div class="portfolio-image">🔩</div>
-                        <div class="portfolio-info">
-                            <div class="portfolio-name" data-i18n="port5name">Fastening Unit</div>
-                            <div class="portfolio-tag">Fusion 360</div>
-                        </div>
-                    </div>
-                    <div class="portfolio-item" data-project-id="character" onclick="openProjectModal('character')">
-                        <div class="portfolio-image">🧸</div>
-                        <div class="portfolio-info">
-                            <div class="portfolio-name" data-i18n="port6name">Game Character</div>
-                            <div class="portfolio-tag">Blender</div>
-                        </div>
-                    </div>
-                </div>
+                <div class="portfolio-grid" id="portfolioGrid"></div>
             </section>
 
             <!-- CONTACTS -->
             <section class="section glass" id="contacts">
                 <h2 class="section-title">
                     <span class="icon">📫</span>
-                    <span data-i18n="contactsTitle">Contacts</span>
+                    <span data-i18n="contactsTitle"></span>
                 </h2>
-                <ul class="contacts">
-                    <li>
-                        <span class="icon">📧</span>
-                        <span><a href="mailto:radiantgamestudios@gmail.com">radiantgamestudios@gmail.com</a></span>
-                    </li>
-                    <li>
-                        <span class="icon">💬</span>
-                        <span><a href="https://t.me/evgeeeesha27">@evgeeeesha27</a> <span data-i18n="contactTelegram">(Telegram)</span></span>
-                    </li>
-                    <li>
-                        <span class="icon">📱</span>
-                        <span><a href="tel:+79289362122">+7 (928) 936-21-22</a></span>
-                    </li>
-                </ul>
+                <ul class="contacts" id="contactsList"></ul>
                 <div class="guestbook">
-                    <span data-i18n="guestbookText">✍️ Leave a message in my guestbook!</span>
+                    <span data-i18n="guestbookText"></span>
                     <br>
-                    <button class="btn" onclick="alert('📖 Coming soon!')" data-i18n="guestbookBtn">Sign</button>
+                    <button class="btn" id="guestbookBtn" data-i18n="guestbookBtn"></button>
                 </div>
             </section>
         </main>
@@ -924,18 +775,8 @@
 
     <!-- ===== ФУТЕР ===== -->
     <footer class="footer glass">
-        <div>
-            <span data-i18n="footerText">© 2025 Alex · 3D Portfolio · Made with</span>
-            <span class="heart">♥</span>
-            <span data-i18n="footerText2">and code</span>
-        </div>
-        <div class="footer-badges">
-            <span>HTML5</span>
-            <span>CSS3</span>
-            <span>JS</span>
-            <span>Three.js</span>
-            <span>Modern</span>
-        </div>
+        <div id="footerText"></div>
+        <div class="footer-badges" id="footerBadges"></div>
     </footer>
 </div>
 
@@ -943,311 +784,821 @@
 <div class="modal-overlay" id="projectModalOverlay">
     <div class="modal">
         <button class="modal-close" id="modalCloseBtn">✕</button>
-        <div class="modal-title" id="modalProjectTitle">Project</div>
+        <div class="modal-title" id="modalProjectTitle"></div>
+        <div class="modal-desc" id="modalDesc"></div>
         <div class="modal-content">
             <div class="modal-panel">
-                <h4>🎨 Render</h4>
-                <div class="render-box" id="renderBox">
-                    <span id="renderEmoji">⚙️</span>
+                <h4 data-i18n="modalGallery"></h4>
+                <div class="gallery">
+                    <div class="gallery-main" id="galleryMain"></div>
+                    <div class="gallery-caption" id="galleryCaption"></div>
+                    <div class="gallery-thumbs" id="galleryThumbs"></div>
                 </div>
             </div>
             <div class="modal-panel">
-                <h4>🖱️ 3D Model (drag)</h4>
+                <h4 data-i18n="modal3D"></h4>
                 <div class="model-container" id="modelContainer"></div>
-                <div class="model-hint">← drag to rotate · scroll to zoom →</div>
+                <div class="model-hint" data-i18n="modalHint"></div>
             </div>
         </div>
     </div>
 </div>
 
+<!-- ===== ЛОАДЕР ===== -->
+<div class="loader" id="loader"><div id="loaderText">Loading…</div></div>
+
 <script>
-    // =============================================
-    //  ПЕРЕВОДЫ
-    // =============================================
-    const translations = {
-        ru: {
-            siteTitle: '3D ПОРТФОЛИО',
-            siteSubtitle: 'Fusion 360 · Blender · Инжиниринг',
-            navAbout: 'Обо мне',
-            navSkills: 'Навыки',
-            navPortfolio: 'Портфолио',
-            navContacts: 'Контакты',
-            navGallery: 'Галерея',
-            navBlog: 'Блог',
-            sidebarInfo: '📋 Инфо',
-            sidebarName: 'Имя: Алекс',
-            sidebarRole: 'Роль: 3D-Инженер',
-            sidebarExp: 'Опыт: 7+ лет',
-            sidebarLoc: 'Локация: 🌍',
-            sidebarCounter: '🔢 Посетители',
-            sidebarBadges: '🏷️ Бейджи',
-            aboutTitle: 'Обо мне',
-            aboutText1: 'Привет! Я <span class="highlight">Алекс</span> — 3D-моделлер и инженер. Работаю с <strong>Fusion 360</strong> и <strong>Blender</strong>.',
-            aboutText2: 'Создаю точные инженерные модели, прототипы для 3D-печати, а также художественные визуализации. Моя страсть — превращать идеи в цифровые объекты, которые можно напечатать, собрать или использовать в играх.',
-            aboutText3: '🔧 CAD · 🎨 Дизайн · 🖨️ 3D Печать',
-            skillsTitle: 'Навыки',
-            skill3dPrint: '3D-печать',
-            skillCAD: 'CAD модели',
-            skillRender: 'Рендеринг',
-            skillParam: 'Параметрика',
-            portfolioTitle: 'Портфолио',
-            port1name: 'Механическая деталь',
-            port2name: 'Архитектурный проект',
-            port3name: 'Робот-манипулятор',
-            port4name: 'Декоративная ваза',
-            port5name: 'Крепёжный узел',
-            port6name: 'Игровой персонаж',
-            contactsTitle: 'Контакты',
-            contactTelegram: '(Telegram)',
-            guestbookText: '✍️ Оставьте запись в моей гостевой книге!',
-            guestbookBtn: 'Подписать',
-            footerText: '© 2025 Алекс · 3D Портфолио · Сделано с',
-            footerText2: 'и кодом',
-        },
-        en: {
-            siteTitle: '3D PORTFOLIO',
-            siteSubtitle: 'Fusion 360 · Blender · Engineering',
-            navAbout: 'About',
-            navSkills: 'Skills',
-            navPortfolio: 'Portfolio',
-            navContacts: 'Contacts',
-            navGallery: 'Gallery',
-            navBlog: 'Blog',
-            sidebarInfo: '📋 Info',
-            sidebarName: 'Name: Alex',
-            sidebarRole: 'Role: 3D Engineer',
-            sidebarExp: 'Experience: 7+ years',
-            sidebarLoc: 'Location: 🌍',
-            sidebarCounter: '🔢 Visitors',
-            sidebarBadges: '🏷️ Badges',
-            aboutTitle: 'About Me',
-            aboutText1: 'Hi! I\'m <span class="highlight">Alex</span> – a 3D modeler and engineer. I work with <strong>Fusion 360</strong> and <strong>Blender</strong>.',
-            aboutText2: 'I create precise engineering models, prototypes for 3D printing, and artistic visualizations. My passion is turning ideas into digital objects that can be printed, assembled, or used in games.',
-            aboutText3: '🔧 CAD · 🎨 Design · 🖨️ 3D Print',
-            skillsTitle: 'My Skills',
-            skill3dPrint: '3D Printing',
-            skillCAD: 'CAD Models',
-            skillRender: 'Rendering',
-            skillParam: 'Parametrics',
-            portfolioTitle: 'Portfolio',
-            port1name: 'Mechanical Part',
-            port2name: 'Architectural Project',
-            port3name: 'Robot Manipulator',
-            port4name: 'Decorative Vase',
-            port5name: 'Fastening Unit',
-            port6name: 'Game Character',
-            contactsTitle: 'Contacts',
-            contactTelegram: '(Telegram)',
-            guestbookText: '✍️ Leave a message in my guestbook!',
-            guestbookBtn: 'Sign',
-            footerText: '© 2025 Alex · 3D Portfolio · Made with',
-            footerText2: 'and code',
-        }
-    };
+(function () {
+    'use strict';
 
-    // =============================================
-    //  ДАННЫЕ ПРОЕКТОВ
-    // =============================================
-    const projectsData = {
-        mechanical:   { ru: 'Механическая деталь', en: 'Mechanical Part', emoji: '⚙️', color: 0x6c8cff, geo: 'gear', scale: 1.2 },
-        architecture: { ru: 'Архитектурный проект', en: 'Architectural Project', emoji: '🏗️', color: 0x6c8cff, geo: 'building', scale: 1.0 },
-        robot:        { ru: 'Робот-манипулятор', en: 'Robot Manipulator', emoji: '🤖', color: 0x6c8cff, geo: 'robot', scale: 1.0 },
-        vase:         { ru: 'Декоративная ваза', en: 'Decorative Vase', emoji: '🏺', color: 0x6c8cff, geo: 'vase', scale: 1.1 },
-        fastener:     { ru: 'Крепёжный узел', en: 'Fastening Unit', emoji: '🔩', color: 0x6c8cff, geo: 'fastener', scale: 1.0 },
-        character:    { ru: 'Игровой персонаж', en: 'Game Character', emoji: '🧸', color: 0x6c8cff, geo: 'character', scale: 1.0 },
-    };
+    const DATA_URL = 'data.json';
+    const LOG = '[3D]';
 
-    // =============================================
-    //  ЛОГИКА ЯЗЫКА
-    // =============================================
+    let DATA = null;
     let currentLang = 'ru';
+    let currentProject = null;
+    let currentImageIndex = 0;
+
+    /* =============================================
+       ЛОКАЛИЗАЦИЯ
+       ============================================= */
+    function L(value) {
+        if (value === null || value === undefined) return '';
+        if (typeof value === 'string') return value;
+        if (typeof value === 'number') return String(value);
+        if (Array.isArray(value)) return value.map(L).join('');
+        if (typeof value === 'object') {
+            if (value[currentLang] !== undefined) return value[currentLang];
+            if (value.ru !== undefined) return value.ru;
+            const first = Object.values(value)[0];
+            return first !== undefined ? first : '';
+        }
+        return String(value);
+    }
+
+    function label(key) {
+        const item = DATA && DATA.labels ? DATA.labels[key] : null;
+        return item ? L(item) : key;
+    }
+
+    function applyLabels() {
+        document.querySelectorAll('[data-i18n]').forEach(function (el) {
+            const key = el.getAttribute('data-i18n');
+            const val = DATA && DATA.labels ? DATA.labels[key] : null;
+            if (val !== undefined && val !== null) el.innerHTML = L(val);
+        });
+    }
+
+    /* =============================================
+       ЭЛЕМЕНТЫ
+       ============================================= */
+    const overlay    = document.getElementById('projectModalOverlay');
+    const closeBtn   = document.getElementById('modalCloseBtn');
+    const modalTitle = document.getElementById('modalProjectTitle');
+    const modalDesc  = document.getElementById('modalDesc');
+    const container  = document.getElementById('modelContainer');
+
+    /* =============================================
+       СЧЁТЧИК
+       ============================================= */
+    function initCounter() {
+        const settings = DATA.settings || {};
+        const start = Number(settings.counterStart) || 0;
+        const key = (settings.storageKeys && settings.storageKeys.counter) || 'portfolio_counter';
+        let value = start;
+        try {
+            const stored = localStorage.getItem(key);
+            value = stored !== null ? (parseInt(stored, 10) || 0) + 1 : start;
+            localStorage.setItem(key, value);
+        } catch (e) { /* localStorage недоступен */ }
+        document.getElementById('visitorCounter').textContent = String(value).padStart(5, '0');
+    }
+
+    /* =============================================
+       ПЕРЕКЛЮЧАТЕЛЬ ЯЗЫКОВ
+       ============================================= */
+    function buildLangSwitch() {
+        const wrap = document.getElementById('langSwitch');
+        wrap.innerHTML = '';
+        const langs = (DATA.settings && DATA.settings.languages) || ['ru'];
+        langs.forEach(function (code) {
+            const b = document.createElement('button');
+            b.className = 'lang-btn';
+            b.dataset.lang = code;
+            b.textContent = code.toUpperCase();
+            b.addEventListener('click', function () { setLanguage(code); });
+            wrap.appendChild(b);
+        });
+    }
 
     function setLanguage(lang) {
         currentLang = lang;
-        const dict = translations[lang];
-        document.querySelectorAll('[data-i18n]').forEach(el => {
-            const key = el.getAttribute('data-i18n');
-            if (dict[key]) el.innerHTML = dict[key];
+        if (DATA.settings) document.documentElement.lang = lang;
+
+        applyLabels();
+        renderDynamic();
+
+        document.title = L(DATA.settings.pageTitle) || 'Portfolio';
+
+        document.querySelectorAll('.lang-btn').forEach(function (b) {
+            b.classList.toggle('active', b.dataset.lang === lang);
         });
-        document.title = lang === 'ru' ? '3D Портфолио' : '3D Portfolio';
-        document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
-        localStorage.setItem('portfolio_lang', lang);
+
+        try {
+            const key = (DATA.settings.storageKeys && DATA.settings.storageKeys.lang) || 'portfolio_lang';
+            localStorage.setItem(key, lang);
+        } catch (e) { /* ignore */ }
+
+        if (overlay.classList.contains('active') && currentProject) {
+            refreshModalTexts();
+        }
     }
 
-    const saved = localStorage.getItem('portfolio_lang');
-    setLanguage(saved === 'en' ? 'en' : 'ru');
+    /* =============================================
+       РЕНДЕР ДАННЫХ
+       ============================================= */
+    function renderDynamic() {
+        document.getElementById('logoIcon').textContent = DATA.site.logoIcon || '';
+        document.getElementById('logoTitle').innerHTML = L(DATA.site.title);
+        document.getElementById('logoSub').textContent = L(DATA.site.subtitle);
 
-    // =============================================
-    //  СЧЁТЧИК
-    // =============================================
-    let counter = 42;
-    try {
-        const stored = localStorage.getItem('portfolio_counter');
-        if (stored) counter = parseInt(stored, 10) + 1;
-        localStorage.setItem('portfolio_counter', counter);
-    } catch(e) {}
-    document.getElementById('visitorCounter').textContent = String(counter).padStart(5, '0');
+        const infoList = document.getElementById('sidebarInfoList');
+        infoList.innerHTML = '';
+        (DATA.sidebar.info || []).forEach(function (item) {
+            const li = document.createElement('li');
+            li.textContent = L(item);
+            infoList.appendChild(li);
+        });
 
-    // =============================================
-    //  МОДАЛЬНОЕ ОКНО И 3D
-    // =============================================
-    const overlay = document.getElementById('projectModalOverlay');
-    const closeBtn = document.getElementById('modalCloseBtn');
-    const modalTitle = document.getElementById('modalProjectTitle');
-    const renderEmoji = document.getElementById('renderEmoji');
-    const container = document.getElementById('modelContainer');
+        const badges = document.getElementById('sidebarBadges');
+        badges.innerHTML = '';
+        (DATA.sidebar.badges || []).forEach(function (b) {
+            const s = document.createElement('span');
+            s.textContent = L(b);
+            badges.appendChild(s);
+        });
 
-    let scene, camera, renderer, controls, animId;
+        document.getElementById('aboutAvatar').textContent = DATA.about.avatar || '👤';
+        const aboutText = document.getElementById('aboutText');
+        aboutText.innerHTML = '';
+        (DATA.about.paragraphs || []).forEach(function (p) {
+            const el = document.createElement('p');
+            el.innerHTML = L(p);
+            aboutText.appendChild(el);
+        });
+
+        const skillsGrid = document.getElementById('skillsGrid');
+        skillsGrid.innerHTML = '';
+        (DATA.skills || []).forEach(function (s) {
+            const item = document.createElement('div');
+            item.className = 'skill-item';
+
+            const icon = document.createElement('span');
+            icon.className = 'icon';
+            icon.textContent = s.icon || '⚡';
+
+            const name = document.createElement('div');
+            name.className = 'name';
+            name.textContent = L(s.name);
+
+            const bar = document.createElement('div');
+            bar.className = 'skill-bar';
+            const fill = document.createElement('div');
+            fill.className = 'skill-bar-fill';
+            fill.style.width = (Number(s.level) || 0) + '%';
+            bar.appendChild(fill);
+
+            const lbl = document.createElement('span');
+            lbl.className = 'skill-label';
+            lbl.textContent = (Number(s.level) || 0) + '%';
+
+            item.appendChild(icon);
+            item.appendChild(name);
+            item.appendChild(bar);
+            item.appendChild(lbl);
+            skillsGrid.appendChild(item);
+        });
+
+        renderPortfolio();
+
+        const contactsList = document.getElementById('contactsList');
+        contactsList.innerHTML = '';
+        (DATA.contacts || []).forEach(function (c) {
+            const li = document.createElement('li');
+
+            const icon = document.createElement('span');
+            icon.className = 'icon';
+            icon.textContent = c.icon || '•';
+            li.appendChild(icon);
+
+            const span = document.createElement('span');
+            if (c.href) {
+                const a = document.createElement('a');
+                a.href = c.href;
+                a.textContent = L(c.text);
+                span.appendChild(a);
+            } else {
+                span.textContent = L(c.text);
+            }
+            if (c.note) {
+                const note = document.createElement('span');
+                note.textContent = ' ' + L(c.note);
+                span.appendChild(note);
+            }
+            li.appendChild(span);
+            contactsList.appendChild(li);
+        });
+
+        document.getElementById('footerText').innerHTML = L(DATA.footer.text);
+        const fBadges = document.getElementById('footerBadges');
+        fBadges.innerHTML = '';
+        (DATA.footer.badges || []).forEach(function (b) {
+            const s = document.createElement('span');
+            s.textContent = L(b);
+            fBadges.appendChild(s);
+        });
+    }
+
+    /* =============================================
+       ПОРТФОЛИО
+       ============================================= */
+    function renderPortfolio() {
+        const grid = document.getElementById('portfolioGrid');
+        grid.innerHTML = '';
+
+        (DATA.projects || []).forEach(function (p) {
+            const item = document.createElement('div');
+            item.className = 'portfolio-item';
+
+            const imageWrap = document.createElement('div');
+            imageWrap.className = 'portfolio-image';
+
+            const first = (p.images || [])[0];
+            if (first && first.src) {
+                const im = document.createElement('img');
+                im.src = first.src;
+                im.alt = L(first.caption) || L(p.name);
+                im.loading = 'lazy';
+                im.addEventListener('error', function () {
+                    im.remove();
+                    imageWrap.textContent = p.icon || '📦';
+                });
+                imageWrap.appendChild(im);
+            } else {
+                imageWrap.textContent = p.icon || '📦';
+            }
+
+            const info = document.createElement('div');
+            info.className = 'portfolio-info';
+
+            const name = document.createElement('div');
+            name.className = 'portfolio-name';
+            name.textContent = L(p.name);
+
+            const tag = document.createElement('div');
+            tag.className = 'portfolio-tag';
+            tag.textContent = L(p.tag);
+
+            info.appendChild(name);
+            info.appendChild(tag);
+            item.appendChild(imageWrap);
+            item.appendChild(info);
+
+            item.addEventListener('click', function () { openProjectModal(p.id); });
+            grid.appendChild(item);
+        });
+    }
+
+    /* =============================================
+       ГАЛЕРЕЯ В МОДАЛКЕ
+       ============================================= */
+    function makeFallback(proj) {
+        const d = document.createElement('div');
+        d.className = 'gallery-fallback';
+        d.textContent = proj.icon || '🖼️';
+        return d;
+    }
+
+    function buildGallery(proj) {
+        const main = document.getElementById('galleryMain');
+        const thumbs = document.getElementById('galleryThumbs');
+        const images = (proj.images || []).filter(function (i) { return i && i.src; });
+
+        main.innerHTML = '';
+        thumbs.innerHTML = '';
+        currentImageIndex = 0;
+
+        if (!images.length) {
+            thumbs.style.display = 'none';
+            main.appendChild(makeFallback(proj));
+            updateCaption();
+            return;
+        }
+
+        const img = document.createElement('img');
+        img.src = images[0].src;
+        img.alt = L(images[0].caption) || L(proj.name);
+        img.addEventListener('error', function () {
+            img.remove();
+            if (!main.querySelector('.gallery-fallback')) main.appendChild(makeFallback(proj));
+        });
+        main.appendChild(img);
+
+        if (images.length > 1) {
+            thumbs.style.display = '';
+            images.forEach(function (im, idx) {
+                const btn = document.createElement('div');
+                btn.className = 'gallery-thumb' + (idx === 0 ? ' active' : '');
+
+                const t = document.createElement('img');
+                t.src = im.src;
+                t.alt = '';
+                t.loading = 'lazy';
+                t.addEventListener('error', function () {
+                    t.remove();
+                    btn.textContent = proj.icon || '🖼️';
+                });
+                btn.appendChild(t);
+
+                btn.addEventListener('click', function () { selectImage(proj, images, idx); });
+                thumbs.appendChild(btn);
+            });
+        } else {
+            thumbs.style.display = 'none';
+        }
+
+        updateCaption();
+    }
+
+    function selectImage(proj, images, idx) {
+        currentImageIndex = idx;
+        const main = document.getElementById('galleryMain');
+        main.innerHTML = '';
+
+        const img = document.createElement('img');
+        img.src = images[idx].src;
+        img.alt = L(images[idx].caption) || L(proj.name);
+        img.addEventListener('error', function () {
+            img.remove();
+            main.appendChild(makeFallback(proj));
+        });
+        main.appendChild(img);
+
+        document.querySelectorAll('.gallery-thumb').forEach(function (b, i) {
+            b.classList.toggle('active', i === idx);
+        });
+
+        updateCaption();
+    }
+
+    function updateCaption() {
+        const cap = document.getElementById('galleryCaption');
+        if (!currentProject) { cap.textContent = ''; return; }
+        const images = (currentProject.images || []).filter(function (i) { return i && i.src; });
+        const img = images[currentImageIndex];
+        cap.textContent = img ? L(img.caption) : '';
+    }
+
+    /* =============================================
+       МОДАЛЬНОЕ ОКНО
+       ============================================= */
+    function refreshModalTexts() {
+        if (!currentProject) return;
+        modalTitle.textContent = L(currentProject.name);
+        const text = L(currentProject.description);
+        modalDesc.innerHTML = text;
+        modalDesc.style.display = text ? '' : 'none';
+        updateCaption();
+    }
+
+    function openProjectModal(id) {
+        const proj = (DATA.projects || []).find(function (p) { return p.id === id; });
+        if (!proj) {
+            console.warn(LOG, 'проект не найден по id:', id);
+            return;
+        }
+
+        console.log(LOG, 'открываю проект:', proj.id, proj.model);
+
+        currentProject = proj;
+        refreshModalTexts();
+        buildGallery(proj);
+
+        overlay.classList.add('active');
+        setTimeout(function () { initThree(proj); }, 60);
+    }
 
     function closeModal() {
         overlay.classList.remove('active');
-        if (animId) cancelAnimationFrame(animId);
+        currentProject = null;
+        loadToken++;   // инвалидируем все незавершённые загрузки
+        if (animId) { cancelAnimationFrame(animId); animId = null; }
         if (renderer) { renderer.dispose(); renderer = null; }
-        if (scene) { scene.traverse(o => { if (o.geometry) o.geometry.dispose(); if (o.material) o.material.dispose(); }); scene = null; }
+        if (scene) {
+            scene.traverse(function (o) {
+                if (o.geometry) o.geometry.dispose();
+                if (o.material) {
+                    if (Array.isArray(o.material)) o.material.forEach(function (m) { m.dispose(); });
+                    else o.material.dispose();
+                }
+            });
+            scene = null;
+        }
         if (controls) { controls.dispose(); controls = null; }
         container.innerHTML = '';
     }
 
     closeBtn.addEventListener('click', closeModal);
-    overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
+    overlay.addEventListener('click', function (e) { if (e.target === overlay) closeModal(); });
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && overlay.classList.contains('active')) closeModal();
+    });
+
+    /* =============================================
+       THREE.JS — встроенные процедурные модели
+       ============================================= */
+    let scene, camera, renderer, controls, animId;
+    let loadToken = 0;
 
     function createObject(type, color) {
         const g = new THREE.Group();
-        const mat = new THREE.MeshStandardMaterial({ color, roughness: 0.3, metalness: 0.7, emissive: new THREE.Color(color).multiplyScalar(0.15) });
-        switch(type) {
+        const mat = new THREE.MeshStandardMaterial({
+            color: color,
+            roughness: 0.3,
+            metalness: 0.7,
+            emissive: new THREE.Color(color).multiplyScalar(0.15)
+        });
+
+        switch (type) {
             case 'gear': {
-                const b = new THREE.Mesh(new THREE.CylinderGeometry(1,1,0.3,32), mat);
-                const t = new THREE.Mesh(new THREE.TorusGeometry(1.15,0.12,16,32), mat);
-                t.rotation.x = Math.PI/2; t.position.z = 0.15;
-                const h = new THREE.Mesh(new THREE.CylinderGeometry(0.3,0.3,0.5,16), mat);
-                g.add(b,t,h); break;
+                const b = new THREE.Mesh(new THREE.CylinderGeometry(1, 1, 0.3, 32), mat);
+                const t = new THREE.Mesh(new THREE.TorusGeometry(1.15, 0.12, 16, 32), mat);
+                t.rotation.x = Math.PI / 2; t.position.z = 0.15;
+                const h = new THREE.Mesh(new THREE.CylinderGeometry(0.3, 0.3, 0.5, 16), mat);
+                g.add(b, t, h);
+                break;
             }
             case 'building': {
-                const body = new THREE.Mesh(new THREE.BoxGeometry(1.5,2,1), mat);
-                const roof = new THREE.Mesh(new THREE.ConeGeometry(1.1,0.7,4), mat);
-                roof.position.y = 1.35; roof.rotation.y = Math.PI/4;
-                const win = new THREE.Mesh(new THREE.BoxGeometry(1.55,0.2,1.05), new THREE.MeshStandardMaterial({ color: 0x6c8cff, emissive: 0x6c8cff, emissiveIntensity: 0.2 }));
+                const body = new THREE.Mesh(new THREE.BoxGeometry(1.5, 2, 1), mat);
+                const roof = new THREE.Mesh(new THREE.ConeGeometry(1.1, 0.7, 4), mat);
+                roof.position.y = 1.35; roof.rotation.y = Math.PI / 4;
+                const win = new THREE.Mesh(
+                    new THREE.BoxGeometry(1.55, 0.2, 1.05),
+                    new THREE.MeshStandardMaterial({ color: color, emissive: color, emissiveIntensity: 0.2 })
+                );
                 win.position.y = 0.2;
-                g.add(body,roof,win); break;
+                g.add(body, roof, win);
+                break;
             }
             case 'robot': {
-                const torso = new THREE.Mesh(new THREE.BoxGeometry(0.8,1.2,0.5), mat);
-                const head = new THREE.Mesh(new THREE.SphereGeometry(0.4,16,16), mat);
+                const torso = new THREE.Mesh(new THREE.BoxGeometry(0.8, 1.2, 0.5), mat);
+                const head = new THREE.Mesh(new THREE.SphereGeometry(0.4, 16, 16), mat);
                 head.position.y = 0.9;
-                const armL = new THREE.Mesh(new THREE.CylinderGeometry(0.15,0.15,1,8), mat);
-                armL.position.set(-0.6,0.2,0); armL.rotation.z = 0.3;
+                const armL = new THREE.Mesh(new THREE.CylinderGeometry(0.15, 0.15, 1, 8), mat);
+                armL.position.set(-0.6, 0.2, 0); armL.rotation.z = 0.3;
                 const armR = armL.clone(); armR.position.x = 0.6; armR.rotation.z = -0.3;
-                g.add(torso, head, armL, armR); break;
+                g.add(torso, head, armL, armR);
+                break;
             }
             case 'vase': {
-                const pts = [new THREE.Vector2(0,0), new THREE.Vector2(0.6,0), new THREE.Vector2(0.7,0.3), new THREE.Vector2(0.4,0.8), new THREE.Vector2(0.5,1.2), new THREE.Vector2(0.3,1.4), new THREE.Vector2(0.35,1.5)];
-                g.add(new THREE.Mesh(new THREE.LatheGeometry(pts,32), mat)); break;
+                const pts = [
+                    new THREE.Vector2(0, 0), new THREE.Vector2(0.6, 0), new THREE.Vector2(0.7, 0.3),
+                    new THREE.Vector2(0.4, 0.8), new THREE.Vector2(0.5, 1.2), new THREE.Vector2(0.3, 1.4),
+                    new THREE.Vector2(0.35, 1.5)
+                ];
+                g.add(new THREE.Mesh(new THREE.LatheGeometry(pts, 32), mat));
+                break;
             }
             case 'fastener': {
-                const bolt = new THREE.Mesh(new THREE.CylinderGeometry(0.3,0.3,1.2,6), mat);
-                bolt.rotation.x = Math.PI/2;
-                const head = new THREE.Mesh(new THREE.CylinderGeometry(0.5,0.5,0.3,6), mat);
-                head.position.z = 0.7; head.rotation.x = Math.PI/2;
-                const nut = new THREE.Mesh(new THREE.CylinderGeometry(0.45,0.45,0.4,6), mat);
-                nut.position.z = 0; nut.rotation.x = Math.PI/2;
-                g.add(bolt, head, nut); break;
+                const bolt = new THREE.Mesh(new THREE.CylinderGeometry(0.3, 0.3, 1.2, 6), mat);
+                bolt.rotation.x = Math.PI / 2;
+                const head = new THREE.Mesh(new THREE.CylinderGeometry(0.5, 0.5, 0.3, 6), mat);
+                head.position.z = 0.7; head.rotation.x = Math.PI / 2;
+                const nut = new THREE.Mesh(new THREE.CylinderGeometry(0.45, 0.45, 0.4, 6), mat);
+                nut.position.z = 0; nut.rotation.x = Math.PI / 2;
+                g.add(bolt, head, nut);
+                break;
             }
             case 'character': {
-                const body = new THREE.Mesh(new THREE.SphereGeometry(0.8,16,16), mat);
-                const head = new THREE.Mesh(new THREE.SphereGeometry(0.5,16,16), mat);
+                const body = new THREE.Mesh(new THREE.SphereGeometry(0.8, 16, 16), mat);
+                const head = new THREE.Mesh(new THREE.SphereGeometry(0.5, 16, 16), mat);
                 head.position.y = 1.1;
-                const eL = new THREE.Mesh(new THREE.SphereGeometry(0.1,8,8), new THREE.MeshStandardMaterial({ color: 0xf0f4ff }));
-                eL.position.set(-0.18,1.15,0.4);
+                const eyeMat = new THREE.MeshStandardMaterial({ color: 0xf0f4ff });
+                const eL = new THREE.Mesh(new THREE.SphereGeometry(0.1, 8, 8), eyeMat);
+                eL.position.set(-0.18, 1.15, 0.4);
                 const eR = eL.clone(); eR.position.x = 0.18;
-                g.add(body, head, eL, eR); break;
+                g.add(body, head, eL, eR);
+                break;
             }
-            default: g.add(new THREE.Mesh(new THREE.BoxGeometry(1,1,1), mat));
+            default:
+                g.add(new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), mat));
         }
         return g;
     }
 
-    function initThree(projectId) {
-        const proj = projectsData[projectId];
-        if (!proj) return;
+    function initThree(proj) {
+        const myToken = ++loadToken;
+        const cfg = proj.model || {};
         container.innerHTML = '';
 
         const w = container.clientWidth || 400;
-        const h = container.clientHeight || 280;
+        const h = container.clientHeight || 300;
 
         scene = new THREE.Scene();
         scene.background = new THREE.Color(0x0b1a33);
 
-        camera = new THREE.PerspectiveCamera(45, w/h, 0.1, 100);
-        camera.position.set(3,2,4);
-        camera.lookAt(0,0,0);
+        camera = new THREE.PerspectiveCamera(45, w / h, 0.1, 100);
+        camera.position.set(3, 2, 4);
+        camera.lookAt(0, 0, 0);
 
         renderer = new THREE.WebGLRenderer({ antialias: true });
         renderer.setSize(w, h);
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         renderer.shadowMap.enabled = true;
         container.appendChild(renderer.domElement);
 
-        const ambient = new THREE.AmbientLight(0xffffff, 0.5);
-        scene.add(ambient);
-        const dir = new THREE.DirectionalLight(0xffffff,0.9);
-        dir.position.set(5,10,7); dir.castShadow = true;
+        scene.add(new THREE.AmbientLight(0xffffff, 0.55));
+
+        const dir = new THREE.DirectionalLight(0xffffff, 0.95);
+        dir.position.set(5, 10, 7);
+        dir.castShadow = true;
         scene.add(dir);
-        const fill = new THREE.PointLight(0x6c8cff,0.4);
-        fill.position.set(-3,1,2);
+
+        const fill = new THREE.PointLight(0x6c8cff, 0.5);
+        fill.position.set(-3, 2, 2);
         scene.add(fill);
 
-        const obj = createObject(proj.geo, proj.color);
-        obj.scale.setScalar(proj.scale || 1);
-        obj.castShadow = true; obj.receiveShadow = true;
-        scene.add(obj);
-
-        const floor = new THREE.Mesh(new THREE.PlaneGeometry(6,6), new THREE.ShadowMaterial({ opacity: 0.3 }));
-        floor.rotation.x = -Math.PI/2;
-        floor.position.y = -1.2;
-        floor.receiveShadow = true;
-        scene.add(floor);
+        const hemi = new THREE.HemisphereLight(0xffffff, 0x1e2a4a, 0.4);
+        scene.add(hemi);
 
         controls = new THREE.OrbitControls(camera, renderer.domElement);
         controls.enableDamping = true;
         controls.dampingFactor = 0.08;
         controls.autoRotate = true;
         controls.autoRotateSpeed = 1.5;
-        controls.target.set(0,0,0);
+        controls.target.set(0, 0, 0);
         controls.update();
 
-        function animate() {
+        function addFloor(y) {
+            const floor = new THREE.Mesh(
+                new THREE.PlaneGeometry(20, 20),
+                new THREE.ShadowMaterial({ opacity: 0.35 })
+            );
+            floor.rotation.x = -Math.PI / 2;
+            floor.position.y = y;
+            floor.receiveShadow = true;
+            scene.add(floor);
+        }
+
+        function fitAndCenter(obj, extraScale) {
+            const box = new THREE.Box3().setFromObject(obj);
+            const size = box.getSize(new THREE.Vector3());
+            const center = box.getCenter(new THREE.Vector3());
+            obj.position.sub(center);
+            const maxDim = Math.max(size.x, size.y, size.z) || 1;
+            const targetSize = 2.8;
+            const s = (targetSize / maxDim) * (extraScale || 1);
+            obj.scale.setScalar(s);
+            return { bottom: (-size.y / 2) * s, size: size.clone().multiplyScalar(s) };
+        }
+
+        // ====== ВНЕШНЯЯ МОДЕЛЬ ======
+        if (cfg.url) {
+            console.log(LOG, 'initThree: старт загрузки', cfg.url, 'scale=', cfg.scale);
+
+            const overlayEl = document.createElement('div');
+            overlayEl.className = 'model-overlay';
+            overlayEl.textContent = 'Загрузка 0%';
+            container.appendChild(overlayEl);
+
+            let finished = false;
+            function finishLoad() {
+                if (finished) return;
+                finished = true;
+                if (overlayEl.parentNode) overlayEl.parentNode.removeChild(overlayEl);
+                console.log(LOG, 'initThree: плашка снята');
+            }
+
+            const manager = new THREE.LoadingManager();
+            manager.onStart = function (url) {
+                console.log(LOG, 'manager.onStart', url);
+            };
+            manager.onProgress = function (url, loaded, total) {
+                console.log(LOG, 'manager.onProgress', url, loaded + '/' + total);
+            };
+            manager.onLoad = function () {
+                console.log(LOG, 'manager.onLoad (все ресурсы скачаны)');
+            };
+            manager.onError = function (url) {
+                console.warn(LOG, 'manager.onError — не загрузился ресурс:', url);
+            };
+
+            const loader = new THREE.GLTFLoader(manager);
+
+            // Draco подключаем всегда — вреда нет, а если модель сжата, чинит её
+            if (THREE.DRACOLoader) {
+                const draco = new THREE.DRACOLoader(manager);
+                draco.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.5.5/');
+                loader.setDRACOLoader(draco);
+                console.log(LOG, 'DRACOLoader подключён');
+            } else {
+                console.warn(LOG, 'DRACOLoader недоступен — сжатые GLB не загрузятся');
+            }
+
+            // Сторожевой таймаут
+            const guard = setTimeout(function () {
+                if (finished || myToken !== loadToken) return;
+                console.warn(LOG, 'таймаут 25 с — парсинг модели завис:', cfg.url);
+                finished = true;
+                overlayEl.classList.add('error');
+                overlayEl.textContent =
+                    'Модель не загрузилась за 25 с.\n' +
+                    'Скорее всего GLB использует неподдерживаемое расширение.\n' +
+                    'Проверьте ' + cfg.url + ' в https://gltf-viewer.donmccurdy.com/';
+            }, 25000);
+
+            console.log(LOG, 'вызываю loader.load()');
+            loader.load(
+                cfg.url,
+                function (gltf) {
+                    clearTimeout(guard);
+                    console.log(LOG, 'onLoad — модель получена:', cfg.url);
+                    console.log(LOG, 'gltf:', gltf);
+
+                    if (myToken !== loadToken) {
+                        console.log(LOG, 'устаревший onLoad — игнорирую (модалку переоткрыли/закрыли)');
+                        return;
+                    }
+
+                    try {
+                        const obj = gltf.scene || (gltf.scenes && gltf.scenes[0]);
+                        if (!obj) throw new Error('gltf.scene отсутствует');
+
+                        let meshCount = 0;
+                        obj.traverse(function (o) {
+                            if (o.isMesh) {
+                                meshCount++;
+                                o.castShadow = true;
+                                o.receiveShadow = true;
+                                if (o.material) o.material.side = THREE.DoubleSide;
+                            }
+                        });
+                        console.log(LOG, 'меш‑ов в модели:', meshCount);
+
+                        const info = fitAndCenter(obj, Number(cfg.scale) || 1);
+                        console.log(LOG, 'размеры после нормализации:', info.size);
+
+                        scene.add(obj);
+                        addFloor(info.bottom - 0.05);
+
+                        controls.target.set(0, 0, 0);
+                        controls.update();
+
+                        const r = Math.max(info.size.x, info.size.y, info.size.z);
+                        camera.position.set(r * 1.4, r * 1.0, r * 1.8);
+                        camera.lookAt(0, 0, 0);
+                        controls.update();
+
+                        console.log(LOG, 'модель добавлена в сцену, камера настроена');
+                    } catch (e) {
+                        console.error(LOG, 'ошибка при обработке модели:', e);
+                    } finally {
+                        finishLoad();
+                    }
+                },
+                function (xhr) {
+                    if (finished || myToken !== loadToken) return;
+                    if (xhr.total) {
+                        const p = Math.round((xhr.loaded / xhr.total) * 100);
+                        overlayEl.textContent = 'Загрузка ' + p + '%';
+                        // Логируем не каждый байт, а примерно каждые 10%
+                        if (!xhr._lastPct || Math.abs(p - xhr._lastPct) >= 10) {
+                            xhr._lastPct = p;
+                            console.log(LOG, 'progress', p + '%', xhr.loaded + '/' + xhr.total);
+                        }
+                    } else if (xhr.loaded) {
+                        overlayEl.textContent = 'Загрузка ' +
+                            Math.round(xhr.loaded / 1024) + ' КБ';
+                    }
+                },
+                function (err) {
+                    clearTimeout(guard);
+                    if (myToken !== loadToken) return;
+                    finished = true;
+                    console.error(LOG, 'onError — модель не загрузилась:', cfg.url, err);
+                    overlayEl.classList.add('error');
+                    overlayEl.textContent =
+                        'Не удалось загрузить ' + cfg.url +
+                        (err && err.message ? '\n' + err.message : '');
+                }
+            );
+        }
+        // ====== ВСТРОЕННАЯ ПРОЦЕДУРНАЯ МОДЕЛЬ ======
+        else {
+            console.log(LOG, 'initThree: процедурная модель', cfg.type, 'color=', cfg.color);
+            const colorHex = new THREE.Color(cfg.color || '#6c8cff').getHex();
+            const obj = createObject(cfg.type || 'box', colorHex);
+            obj.scale.setScalar(Number(cfg.scale) || 1);
+            obj.castShadow = true;
+            obj.receiveShadow = true;
+            scene.add(obj);
+            addFloor(-1.2);
+        }
+
+        if (animId) cancelAnimationFrame(animId);
+        (function animate() {
             animId = requestAnimationFrame(animate);
+            if (myToken !== loadToken) return;   // цикл устарел
             controls.update();
             renderer.render(scene, camera);
-        }
-        animate();
+        })();
     }
 
-    function openProjectModal(id) {
-        const proj = projectsData[id];
-        if (!proj) return;
-        modalTitle.textContent = proj[currentLang] || proj.ru;
-        renderEmoji.textContent = proj.emoji;
-        overlay.classList.add('active');
-        setTimeout(() => initThree(id), 60);
-    }
-
-    window.addEventListener('resize', () => {
-        if (renderer && camera && container) {
-            const w = container.clientWidth, h = container.clientHeight || 280;
-            camera.aspect = w/h;
+    window.addEventListener('resize', function () {
+        if (renderer && camera && container && container.clientWidth) {
+            const w = container.clientWidth;
+            const h = container.clientHeight || 280;
+            camera.aspect = w / h;
             camera.updateProjectionMatrix();
-            renderer.setSize(w,h);
+            renderer.setSize(w, h);
         }
     });
 
-    // Плавный скролл
-    document.querySelectorAll('.nav-btn[href^="#"]').forEach(btn => {
-        btn.addEventListener('click', function(e) {
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    /* =============================================
+       ПЛАВНЫЙ СКРОЛЛ + ГОСТЕВАЯ КНИГА
+       ============================================= */
+    function bindScroll() {
+        document.querySelectorAll('.nav-btn[href^="#"]').forEach(function (btn) {
+            btn.addEventListener('click', function (e) {
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
         });
+    }
+
+    document.getElementById('guestbookBtn').addEventListener('click', function () {
+        alert(label('guestbookAlert'));
     });
+
+    /* =============================================
+       ЗАГРУЗКА
+       ============================================= */
+    function showError(err) {
+        const box = document.getElementById('loaderText');
+        box.className = 'err';
+        box.innerHTML =
+            '<b>Не удалось загрузить data.json</b><br><br>' +
+            'Ошибка: ' + (err && err.message ? err.message : err) + '<br><br>' +
+            'Если вы открыли файл двойным кликом (протокол <code>file://</code>), ' +
+            'браузер блокирует чтение JSON. Запустите локальный сервер:<br><br>' +
+            '<code>python -m http.server 8000</code><br><br>' +
+            'и откройте <code>http://localhost:8000</code>';
+    }
+
+    async function init() {
+        console.log(LOG, 'init: загружаю data.json…');
+        try {
+            const res = await fetch(DATA_URL, { cache: 'no-store' });
+            if (!res.ok) throw new Error('HTTP ' + res.status + ' ' + res.statusText);
+            DATA = await res.json();
+            console.log(LOG, 'data.json загружен, проектов:', (DATA.projects || []).length);
+        } catch (err) {
+            console.error(LOG, 'ошибка загрузки data.json:', err);
+            showError(err);
+            return;
+        }
+
+        DATA.settings  = DATA.settings  || {};
+        DATA.labels    = DATA.labels    || {};
+        DATA.sidebar   = DATA.sidebar   || {};
+        DATA.about     = DATA.about     || {};
+        DATA.footer    = DATA.footer    || {};
+
+        initCounter();
+        buildLangSwitch();
+
+        let lang = DATA.settings.defaultLang || 'ru';
+        try {
+            const key = (DATA.settings.storageKeys && DATA.settings.storageKeys.lang) || 'portfolio_lang';
+            const saved = localStorage.getItem(key);
+            if (saved) lang = saved;
+        } catch (e) { /* ignore */ }
+
+        const available = (DATA.settings.languages || []).map(String);
+        if (available.length && available.indexOf(lang) === -1) lang = available[0];
+
+        setLanguage(lang);
+        bindScroll();
+
+        document.getElementById('loader').classList.add('hidden');
+        console.log(LOG, 'init завершён');
+    }
+
+    init();
+})();
 </script>
 </body>
 </html>
