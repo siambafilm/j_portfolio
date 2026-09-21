@@ -98,7 +98,7 @@
     {
       "id": "nakladka_boker",
       "name": { "ru": "Накладка Boker", "en": "Boker Overlay" },
-      "tag": "3D Model",
+      "tag": "Fusion 360",
       "icon": "🛠️",
       "images": [
         { "src": "img/nakladki_boker.png", "caption": { "ru": "Накладка", "en": "Overlay" } }
