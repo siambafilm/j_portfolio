@@ -39,37 +39,38 @@
       { "ru": "Опыт: 1 год", "en": "Experience: 1 year" },
       { "ru": "Локация: 🌍", "en": "Location: 🌍" }
     ],
-    "badges": ["Fusion 360", "Blender", "3D Print", "CAD"]
+    "badges": ["Fusion 360", "KOMPAS-3D", "Blender", "3D Print", "CAD"]
   },
   "about": {
     "avatar": "👩‍💻",
     "paragraphs": [
-      { "ru": "Привет! Я <span class=\"highlight\">Женя</span> — 3D-моделлер и инженер. Работаю с <strong>Fusion 360</strong> и <strong>Blender</strong>.", "en": "Hi! I'm <span class=\"highlight\">Zhenya</span> – a 3D modeler and engineer. I work with <strong>Fusion 360</strong> and <strong>Blender</strong>." },
+      { "ru": "Привет! Я <span class=\"highlight\">Женя</span> — 3D-моделлер и инженер, учусь на 2 курсе по программе Биотехнические системы и технологии в КубГУ (Краснодар). В основном работаю с <strong>Fusion 360</strong> и <strong>Blender</strong>, но также имею навыки в <strong>Компас-3D</strong>", "en": "Hi! I'm <span class=\"highlight\">Zhenya</span> – a 3D modeler and engineer. I’m a second-year student in the Biotechnical Systems and Technologies program at Kuban State University (Krasnodar). Mainly I work with <strong>Fusion 360</strong> and <strong>Blender</strong>, but also have some skills in <strong>KOMPAS-3D</strong>" },
       { "ru": "Создаю точные инженерные модели, прототипы для 3D-печати, а также художественные визуализации.", "en": "I create precise engineering models, prototypes for 3D printing, and artistic visualizations." },
       { "ru": "🔧 CAD · 🎨 Дизайн · 🖨️ 3D Печать", "en": "🔧 CAD · 🎨 Design · 🖨️ 3D Print" }
     ]
   },
   "skills": [
     { "icon": "⚙️", "name": "Fusion 360", "level": 80 },
+    { "icon": "📦", "name": { "ru": "Компас-3D", "en": "KOMPAS-3D" }, "level": 65 },
     { "icon": "🧊", "name": "Blender", "level": 70 },
     { "icon": "🖨️", "name": { "ru": "3D-печать", "en": "3D Printing" }, "level": 80 },
     { "icon": "📐", "name": { "ru": "CAD модели", "en": "CAD Models" }, "level": 92 },
-    { "icon": "🎨", "name": { "ru": "Рендеринг", "en": "Rendering" }, "level": 75 },
-    { "icon": "📦", "name": { "ru": "Параметрика", "en": "Parametrics" }, "level": 70 }
+    { "icon": "🎨", "name": { "ru": "Рендеринг", "en": "Rendering" }, "level": 75 }
+    
   ],
   "projects": [
     {
       "id": "claws",
-      "name": { "ru": "Клешни", "en": "Claws" },
-      "tag": "3D Model",
+      "name": { "ru": "Протез-клешни", "en": "Claw prosthesis" },
+      "tag": "Fusion 360",
       "icon": "🦀",
       "images": [
         { "src": "img/claws1.png", "caption": { "ru": "Вид 1", "en": "View 1" } },
         { "src": "img/claws2.png", "caption": { "ru": "Вид 2", "en": "View 2" } }
       ],
       "description": {
-        "ru": "3D-модель клешней манипулятора.",
-        "en": "3D model of manipulator claws."
+        "ru": "3D-модель протеза-клешни. (Культеприёмная гильза нуждается в доработке)",
+        "en": "3D model of manipulator claws. (The residual limb socket requires modification)"
       },
       "model": {
         "url": "models/claws.glb",
@@ -78,16 +79,16 @@
     },
     {
       "id": "finger",
-      "name": { "ru": "Палец", "en": "Finger" },
-      "tag": "3D Model",
+      "name": { "ru": "Механический палец", "en": "Mechanical finger" },
+      "tag": "Fusion 360",
       "icon": "☝️",
       "images": [
         { "src": "img/finger1.png", "caption": { "ru": "Вид 1", "en": "View 1" } },
         { "src": "img/finger2.png", "caption": { "ru": "Вид 2", "en": "View 2" } }
       ],
       "description": {
-        "ru": "Деталь механического пальца.",
-        "en": "Mechanical finger part."
+        "ru": "Механический палец, составная часть протеза",
+        "en": "Mechanical finger, a component of a prosthesis"
       },
       "model": {
         "url": "models/finger.glb",
@@ -103,8 +104,8 @@
         { "src": "img/nakladki_boker.png", "caption": { "ru": "Накладка", "en": "Overlay" } }
       ],
       "description": {
-        "ru": "Боковая накладка для инструмента или ножа Boker.",
-        "en": "Side overlay for a Boker tool or knife."
+        "ru": "Боковая накладка для ножа Boker. Сделана с использованием оригинальной накладки как образца формы.",
+        "en": "Side overlay for a Boker knife. Made using the original overlay as a template for the shape."
       },
       "model": {
         "url": "models/nakladka_boker.glb",
@@ -113,15 +114,15 @@
     },
     {
       "id": "noga",
-      "name": { "ru": "Нога", "en": "Leg" },
-      "tag": "3D Model",
+      "name": { "ru": "Ортез ноги", "en": "Leg orthosis" },
+      "tag": "Fusion 360",
       "icon": "🦿",
       "images": [
-        { "src": "img/noga.png", "caption": { "ru": "Механическая нога", "en": "Mechanical leg" } }
+        { "src": "img/noga.png", "caption": { "ru": "Ортез", "en": "Orthosis" } }
       ],
       "description": {
-        "ru": "Элемент опорной ноги робота.",
-        "en": "Robot support leg element."
+        "ru": "Ортез ноги, призванный снимать нагрузку с колленого сустава и уменьшать боль при ходьбе за счёт упругого элемента.",
+        "en": "A leg brace designed to relieve load on the knee joint and reduce pain while walking by means of an elastic element."
       },
       "model": {
         "url": "models/noga.glb",
@@ -130,16 +131,16 @@
     },
     {
       "id": "nozik",
-      "name": { "ru": "Ножик", "en": "Knife" },
-      "tag": "3D Model",
+      "name": { "ru": "Нож", "en": "Knife" },
+      "tag": "Fusion 360",
       "icon": "🔪",
       "images": [
         { "src": "img/nozik1.png", "caption": { "ru": "Вид 1", "en": "View 1" } },
         { "src": "img/nozik2.png", "caption": { "ru": "Вид 2", "en": "View 2" } }
       ],
       "description": {
-        "ru": "Модель складного или фиксированного ножа.",
-        "en": "Model of a folding or fixed knife."
+        "ru": "Модель складного ножа в стиле Танто.",
+        "en": "Model of a folding Tanto-style knife."
       },
       "model": {
         "url": "models/nozik.glb",
@@ -148,8 +149,8 @@
     },
     {
       "id": "parovozik",
-      "name": { "ru": "Паровозик", "en": "Locomotive" },
-      "tag": "3D Model",
+      "name": { "ru": "Головной вагон поезда метро", "en": "Lead car of a metro train" },
+      "tag": "Blender",
       "icon": "🚂",
       "images": [
         { "src": "img/parovozik1.png", "caption": { "ru": "Вид 1", "en": "View 1" } },
@@ -157,8 +158,8 @@
         { "src": "img/parovozik3.png", "caption": { "ru": "Вид 3", "en": "View 3" } }
       ],
       "description": {
-        "ru": "Детализированная модель игрушечного или декоративного паровоза.",
-        "en": "Detailed model of a toy or decorative locomotive."
+        "ru": "Лоу-поли модель головного вагона поезда метро",
+        "en": "Low-poly model of a metro train lead car"
       },
       "model": {
         "url": "models/parovozik.glb",
@@ -167,15 +168,15 @@
     },
     {
       "id": "plata",
-      "name": { "ru": "Плата", "en": "Circuit Board" },
-      "tag": "3D Model",
+      "name": { "ru": "Печатная плата", "en": "PCB" },
+      "tag": "Fusion 360",
       "icon": "📟",
       "images": [
-        { "src": "img/plata.png", "caption": { "ru": "Печатная плата", "en": "PCB" } }
+        { "src": "img/plata.png", "caption": { "ru": "Вид 1", "en": "View 1" } }
       ],
       "description": {
-        "ru": "Модель печатной платы электронного устройства.",
-        "en": "Model of an electronic printed circuit board."
+        "ru": "Модель печатной платы электронного устройства в корпусе.",
+        "en": "Model of an electronic printed circuit board in the housing."
       },
       "model": {
         "url": "models/plata.glb",
@@ -185,7 +186,7 @@
     {
       "id": "servo",
       "name": { "ru": "Сервопривод", "en": "Servo Motor" },
-      "tag": "3D Model",
+      "tag": "Fusion 360",
       "icon": "⚙️",
       "images": [
         { "src": "img/servo.png", "caption": { "ru": "Сервопривод", "en": "Servo motor" } }
